@@ -1,0 +1,10 @@
+
+/* positions */
+.position {
+    display: inline-block;
+    margin: 10px;
+}
+
+.positionBase {
+    font-size: 1.25em;
+}
