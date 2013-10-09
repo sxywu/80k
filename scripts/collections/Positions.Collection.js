@@ -18,15 +18,6 @@ define([
             var that = this;
             d3.csv("data/bart-comp-all.csv", function(response) {
                 var positions = [];
-                // var average = function(array, key) {
-                //     var length = array.length,
-                //         sum = _.chain(array)
-                //         .pluck(key).reduce(function(memo, num) {
-                //             return memo + parseInt(num);
-                //         }, 0).value();
-                //     return sum / length;
-                // };
-
                 _.chain(response)
                     .filter(function(position) {
                         return (position.Union === "SEIU") || (position.Union === "ATU");
