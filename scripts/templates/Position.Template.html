@@ -1,2 +1,3 @@
+<% var format = d3.format(",f"); %>
 <span class="positionTitle"><%= title %></span>
-<span class="positionBase">$<%= base.toFixed(0) %></span>
+<span class="positionBase">$<%= format(base) %></span>
