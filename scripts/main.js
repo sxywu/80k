@@ -5,7 +5,8 @@ require.config({
         "underscore": "underscore",
         "backbone": "backbone",
         "bootstrap": "bootstrap",
-        "d3": "d3.v3"
+        "d3": "d3.v3",
+        "d3.tip": "d3.tip"
     },
     shim: {
         "underscore": {
@@ -17,6 +18,10 @@ require.config({
         },
         "d3": {
             exports: "d3"
+        },
+        "d3.tip": {
+            deps: ["d3"],
+            exports: "d3.tip"
         }
     }
 });

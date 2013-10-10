@@ -8,3 +8,30 @@
 .positionBase {
     font-size: 1.25em;
 }
+
+/* svg */
+
+.tick text {
+    font-size: .85em;
+}
+.domain {
+    fill: none;
+    stroke: none;
+}
+
+.dot {
+
+}
+
+.dotHover {
+    opacity: 0;
+    cursor: pointer;
+}
+
+.d3-tip {
+    background-color: rgba(0, 0, 0, .65);
+    padding: 5px 10px;
+    color: #fff;
+    font-size: .85em;
+    border-radius: 3px;
+}
