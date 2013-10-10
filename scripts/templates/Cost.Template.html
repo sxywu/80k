@@ -1,0 +1,29 @@
+<table>
+<% _.each(data, function(val, key) { %>
+    <tr>
+        <td>
+            <%= key %>
+        </td>
+        <td>
+            <%= val %>
+        </td>
+    </tr>
+<% }); %>
+
+    <tr>
+        <td>
+            Monthly Total
+        </td>
+        <td>
+            <%= monthly %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Annual Total
+        </td>
+        <td>
+            <%= annual %>
+        </td>
+    </tr>
+</table>

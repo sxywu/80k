@@ -10,7 +10,6 @@ define([
     /*
     A model for the cost of living for a particular household size in a particular city.
     Attributes include:
-        - id (ex: "SanFrancisco-4", for a household of 4 in SF)
         - housing
         - food
         - childcare
@@ -22,6 +21,16 @@ define([
 
     */
     return Backbone.Model.extend({
+        getExpenses: function() {
+            var irrelevant = ["Annual Total", "Monthly Total", "TYPE", "City"],
+                json = {};
+            _.each(this.attributes, function(val, key) {
+                if (!_.contains(irrelevant, key)) {
+                    json[key] = val;
+                }
+            });
 
+            return json;
+        }
     });
 });
