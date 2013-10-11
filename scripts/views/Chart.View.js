@@ -67,9 +67,9 @@ define([
             var position = this.positions.getPosition(),
                 cost = this.costs.getCost(),
                 proposal = this.proposals.getProposal(),
-                raises = _.chain(proposal.getLineData().raise)
+                raises = _.chain(proposal.getLineData().Raise)
                     .flatten().groupBy("party").value(),
-                pensions = _.chain(proposal.getLineData().pension)
+                pensions = _.chain(proposal.getLineData().Pension)
                     .flatten().groupBy("party").value(),
                 lastBART = _.clone(position.attributes),
                 lastUnion = _.clone(position.attributes),
