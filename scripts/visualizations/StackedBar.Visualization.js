@@ -180,7 +180,7 @@ define([
 
             var legendHover = svg.append("g").classed("legendHover", true)
                 .attr("transform", "translate(0," + 2 * padding.top + ")")
-                .on("mouseleave", function() {stackedBar.update(0)});
+                .on("mouseleave", stackedBar.update);
 
             legendHover.selectAll("rect.hover").data(data[0].bars[0]).enter()
                 .append("rect").attr("class", "hover")
