@@ -30,7 +30,8 @@ define([
             console.log("reset!");
 
             this.chart.data(this.processData());
-            this.chart(this.el);
+            this.chart(this.$("#chart")[0]);
+            this.chart.legend(this.$("#legend")[0]);
 
         },
         resetPositions: function() {

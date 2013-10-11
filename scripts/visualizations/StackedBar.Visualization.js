@@ -15,6 +15,7 @@ define([
         var data,
             max = 150000,
             width = 525,
+            legendWidth = 225,
             barWidth = 13,
             height = 300,
             barPadding = 0,
@@ -137,6 +138,52 @@ define([
 
         }
 
+        stackedBar.legend = function(selection) {
+            var svg = d3.select(selection);
+            var costLegend = svg.append("g")
+                .attr("transform", "translate(0, " + padding.top + ")");
+            costLegend.append("circle")
+                .attr("cx", barPadding + barWidth)
+                .attr("cy", 0)
+                .attr("r", 3)
+                .attr("fill", app.colors.red);
+            costLegend.append("line")
+                .attr("x1", 0)
+                .attr("x2", 2 * barWidth + barPadding)
+                .attr("y0", 0)
+                .attr("y1", 0)
+                .attr("fill", "none")
+                .attr("stroke", app.colors.red);
+            costLegend.append("text")
+                .attr("x", 2 * barWidth + barPadding + padding.top)
+                .attr("y", 0)
+                .attr("dy", ".25em")
+                .text("Cost of living (Annual)");
+
+            console.log(data[0]);
+            var barLegend = svg.selectAll("g.barLegend").data(data[0].bars)
+                .enter().append("g").classed("barLegend", true)
+                .attr("transform", function(d, i) {
+                    return "translate(0, " + (2 * padding.top + i * barWidth) + ")";
+                });
+            barLegend.selectAll("rect").data(function(d) {return d})
+                .enter().append("rect")
+                .attr("x", function(d, i) {return i * (legendWidth / 4)})
+                .attr("y", 0)
+                .attr("width", legendWidth / 4)
+                .attr("height", barWidth)
+                .attr("opacity", function(d) {return d.opacity})
+                .attr("fill", function(d) {return app.colors[d.party]});
+            svg.selectAll("text.barText").data(data[0].bars[0])
+                .enter().append("text").classed("barText", true)
+                .attr("x", function(d, i) {return i * (legendWidth / 4)})
+                .attr("y", 2 * padding.top + 3 * barWidth)
+                .attr("text-anchor", "start")
+                .text(function(d) {return d.title});
+
+        }
+
+        /* getter/setters */
         stackedBar.data = function(value) {
             if (!arguments.length) return data;
             data = value;
