@@ -34,9 +34,11 @@ define([
                 line = d3.svg.line()
                     .x(function(d, i) {return x(d.year); })
                     .y(function(d, i) {return y(d.rate)}),
-                tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
-                    return _.template(ProposalHoverTemplate, d); 
-                });
+                tip = d3.tip().attr('class', 'd3-tip')
+                    .direction("e")
+                    .html(function(d) {
+                        return _.template(ProposalHoverTemplate, d); 
+                    });
 
             chart = d3.select(selection).append("svg")
                 .attr("width", width).attr("height", height);
