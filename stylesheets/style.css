@@ -1,7 +1,7 @@
 * {
     font-family: Times New Roman;
     font-size: 1em;
-    color: #666;
+    
 }
 
 
@@ -9,8 +9,27 @@
   width: 900px;
   margin-right: auto;
   margin-left: auto;
+  color: #555;
 }
 
+/*
+  header
+*/
+#header {
+  border-bottom: 3px double #666;
+  width: 900px;
+  /*text-align: center;*/
+  /*padding-bottom: 20px;*/
+  margin-bottom: 20px;
+}
+
+#header h2 {
+  text-align: center;
+}
+
+/*
+  content
+*/
 #costsContainer, #proposalsContainer {
     width: 450px;
     float: left;
