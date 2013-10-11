@@ -163,7 +163,6 @@ define([
                 .attr("dy", ".25em")
                 .text("Cost of living (Annual)");
 
-            console.log(data[0]);
             var barLegend = svg.selectAll("g.barLegend").data(data[0].bars)
                 .enter().append("g").classed("barLegend", true)
                 .attr("transform", function(d, i) {
@@ -187,7 +186,6 @@ define([
         }
 
         stackedBar.update = function() {
-            console.log("update");
             groups.data(data);
             bars.data(function(d) {return d.bars});
             rects.data(function(d) {return d}).transition().duration(750)
@@ -234,11 +232,6 @@ define([
             if (!arguments.length) return max;
             max = value;
             return stackedBar;
-        }
-
-        // events
-        function mouseover(d) {
-            console.log(d);
         }
 
         return stackedBar;

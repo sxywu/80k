@@ -36,7 +36,6 @@ define([
                         return cost;
                     }).value();
 
-                console.log(costs);
                 that.reset(costs);
             });
         },

@@ -35,7 +35,6 @@ define([
         total: function() {
             var total = this.get("Annual Total");
             total = total.replace("$", "").replace(",", "");
-            console.log(total);
             return parseInt(total);
         }
     });

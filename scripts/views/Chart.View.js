@@ -31,8 +31,6 @@ define([
             this.proposals.on("change:month", _.bind(this.update, this));
         },
         render: function() {
-            console.log("reset!");
-
             this.chart.data(this.processData());
             this.chart(this.$("#chart")[0]);
             this.chart.legend(this.$("#legend")[0]);
@@ -93,7 +91,6 @@ define([
                 data.push(obj);
             });
 
-            console.log(data);
             return data;
 
         },
