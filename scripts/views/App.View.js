@@ -27,14 +27,16 @@ define([
             this.costsView = new CostsView({collection: new CostsCollection()});
             this.proposalsView = new ProposalsView({collection: new ProposalsCollection});
 
-            this.chartView = new ChartView({positions: this.positionsView.collection});
+            this.chartView = new ChartView({
+                positions: this.positionsView.collection,
+                proposals: this.proposalsView.collection,
+                costs: this.costsView.collection
+            });
         },
         render: function() {
             this.positionsView.render();
-            this.costsView.render();
             this.proposalsView.render();
-            
-            this.chartView.render();
+            this.costsView.render();
         }
     });
 });

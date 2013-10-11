@@ -11,9 +11,9 @@ define([
     d3,
     PositionModel
 ) {
+    var defaultPosition = "Station Agent";
     return Backbone.Collection.extend({
         model: PositionModel,
-        // url: "data/bart-comp-all.csv",
         fetch: function() {
             var that = this;
             d3.csv("data/bart-comp-all.csv", function(response) {
@@ -39,6 +39,15 @@ define([
 
                 that.reset(positions);
             });
+        },
+        setPosition: function(position) {
+            defaultPosition = position;
+            this.trigger("change:position");
+        },
+        getPosition: function() {
+            return this.find(function(model) {
+                return model.get("title") === defaultPosition;
+            })
         }
     });
 });

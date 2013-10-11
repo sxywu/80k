@@ -51,7 +51,6 @@ define([
                 }
             });
 
-            console.log(data);
             return data;
         }
     });

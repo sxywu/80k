@@ -29,27 +29,6 @@ define([
             - ending (int)
             - opacity
         */
-        processData: function() {
-            var order = ["base", "other", "pension", "medical"],
-                starting = 0,
-                opacity = 1 / order.length,
-                attributes = this.attributes,
-                data = [];
-
-            _.each(order, function(key, i) {
-                var obj = {};
-                obj.starting = starting;
-                obj.ending = starting + attributes[key];
-                obj.opacity = 1 - opacity * i;
-                obj.title = key;
-
-                starting = obj.ending;
-
-                data.push(obj);
-            });
-
-            return data;
-        },
         total: function() {
             var keys = ["medical", "pension", "other", "base"],
                 sum = 0,

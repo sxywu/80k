@@ -20,6 +20,7 @@ define([
         },
         setMonth: function(month) {
             defaultMonth = month;
+            this.trigger("change:month");
         },
         getProposal: function() {
             return this.find(function(proposal) {
