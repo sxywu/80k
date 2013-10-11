@@ -29,7 +29,7 @@ define([
                     }).each(function(val, key) {
                         if (val.length > 50) {
                             var obj = {};
-                            obj.title = "Management* (not part of SEIU/ATU)";
+                            obj.title = "Management*";
                             obj.raw = val;
                             obj.base = d3.mean(_.pluck(val, "Base"));
                             obj.overtime = d3.mean(_.pluck(val, "OT"));
