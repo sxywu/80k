@@ -1,3 +1,17 @@
+#costsContainer, #proposalsContainer {
+    width: 450px;
+    float: left;
+}
+
+#positionsContainer {
+    width: 400px;
+    float: left;
+}
+
+#chartContainer {
+    width: 500px;
+    float: left;
+}
 
 /* positions */
 .position {
@@ -33,7 +47,32 @@
     border-radius: 3px;
 }
 
-.proposalYear, .proposalRate {
-    font-size: 1em;
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.65);
+  position: absolute;
+}
+
+.d3-tip.e:after {
+  content: "\25C0";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -8px;
+}
+
+.d3-tip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
+.proposalYear, .proposalRate, .proposalAmount {
+    font-size: 1.1em;
     font-weight: 600;
 }
