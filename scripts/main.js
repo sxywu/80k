@@ -37,6 +37,8 @@ require([
     Backbone,
     AppView
 ) {
+    app = {};
+    app.colors = {BART: "#2667B7", Union: "#FDCA11"};
     var appView = new AppView();
     appView.render();
 });

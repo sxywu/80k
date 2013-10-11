@@ -12,15 +12,12 @@
 /* svg */
 
 .tick text {
-    font-size: .85em;
+    font-size: .75em;
+    color: #666;
 }
 .domain {
     fill: none;
-    stroke: none;
-}
-
-.dot {
-
+    stroke: #666;
 }
 
 .dotHover {
@@ -34,4 +31,9 @@
     color: #fff;
     font-size: .85em;
     border-radius: 3px;
+}
+
+.proposalYear, .proposalRate {
+    font-size: 1em;
+    font-weight: 600;
 }
