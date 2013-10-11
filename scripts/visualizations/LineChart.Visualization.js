@@ -18,27 +18,28 @@ define([
             tickValues = [0, 0.04, 0.08],
             width = 250,
             height = 75,
-            padding = {right: 35, left: 10, top: 15, bottom: 15};
+            padding = {right: 35, left: 10, top: 15, bottom: 15},
+            lines, circles, hoverCircles, x, y, line, tip;
 
         function lineChart(selection) {
-            var x = d3.scale.linear()
-                    .domain([1, 4])
-                    .range([0, width - (padding.right + padding.left)]),
-                y = d3.scale.linear()
-                    .domain([yMin, yMax])
-                    .range([height - (padding.top + padding.bottom), 0]),
-                yAxis = d3.svg.axis()
-                    .scale(y).tickValues(tickValues)
-                    .tickFormat(d3.format("%"))
-                    .orient("right"),
-                line = d3.svg.line()
+            x = d3.scale.linear()
+                .domain([1, 4])
+                .range([0, width - (padding.right + padding.left)]);
+            y = d3.scale.linear()
+                .domain([yMin, yMax])
+                .range([height - (padding.top + padding.bottom), 0]);
+            line = d3.svg.line()
                     .x(function(d, i) {return x(d.year); })
-                    .y(function(d, i) {return y(d.rate)}),
-                tip = d3.tip().attr('class', 'd3-tip')
+                    .y(function(d, i) {return y(d.rate)});
+            tip = d3.tip().attr('class', 'd3-tip')
                     .direction("e")
                     .html(function(d) {
                         return _.template(ProposalHoverTemplate, d); 
                     });
+            var yAxis = d3.svg.axis()
+                    .scale(y).tickValues(tickValues)
+                    .tickFormat(d3.format("%"))
+                    .orient("right");
 
             chart = d3.select(selection).append("svg")
                 .attr("width", width).attr("height", height);
@@ -48,41 +49,90 @@ define([
                 .attr("transform", "translate(" + (width - padding.right) + "," + padding.top + ")")
                 .call(yAxis);
 
-            var line = chart.append("g")
-                .attr("class", "line")
-                .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
-                .selectAll("path")
-                .data(data).enter().append("path")
-                .attr("d", line)
-                .attr("fill", "none")
-                .attr("stroke", function(d) {return app.colors[_.chain(d).pluck("party").uniq().value()]; });
+            if (_.flatten(data).length > 0) {
+                lines = chart.append("g")
+                    .attr("class", "line")
+                    .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+                    .selectAll("path.line")
+                    .data(data).enter().append("path")
+                    .classed("line", true)
+                    .attr("d", line)
+                    .attr("fill", "none")
+                    .attr("stroke", function(d) {return app.colors[_.chain(d).pluck("party").uniq().value()]; });
 
-            var circles = chart.append("g")
-                .attr("class", "circles")
-                .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
-                .selectAll("circle.dot")
-                .data(_.flatten(data)).enter().append("circle")
-                .attr("class", "dot")
-                .attr("cx", function(d, i) {return x(d.year)})
-                .attr("cy", function(d) {return y(d.rate)})
-                .attr("r", 3)
-                .attr("fill", function(d) {return app.colors[d.party]});
+                circles = chart.append("g")
+                    .attr("class", "circles")
+                    .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+                    .selectAll("circle.dot")
+                    .data(_.flatten(data)).enter().append("circle")
+                    .attr("class", "dot")
+                    .attr("cx", function(d, i) {return x(d.year)})
+                    .attr("cy", function(d) {return y(d.rate)})
+                    .attr("r", 3)
+                    .attr("fill", function(d) {return app.colors[d.party]});
 
-            var hoverCircles = chart.append("g")
-                .attr("class", "hoverCircles")
-                .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
-                .selectAll("circle.dotHover")
-                .data(_.flatten(data)).enter().append("circle")
-                .attr("class", "dotHover")
-                .attr("cx", function(d, i) {return x(d.year)})
-                .attr("cy", function(d) {return y(d.rate)})
-                .attr("r", 10)
-                .call(tip)
-                .on("mouseover", tip.show)
-                .on("mouseleave", tip.hide);
+                hoverCircles = chart.append("g")
+                    .attr("class", "hoverCircles")
+                    .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+                    .selectAll("circle.dotHover")
+                    .data(_.flatten(data)).enter().append("circle")
+                    .attr("class", "dotHover")
+                    .attr("cx", function(d, i) {return x(d.year)})
+                    .attr("cy", function(d) {return y(d.rate)})
+                    .attr("r", 10)
+                    .call(tip)
+                    .on("mouseover", tip.show)
+                    .on("mouseleave", tip.hide);
+            }
+            
 
         }
 
+        lineChart.update = function() {
+            if (_.flatten(data).length > 0) {
+                lines.data(data).transition().duration(750).attr("d", line);
+                chart.selectAll("g.line").selectAll("path.line")
+                    .data(data).enter().append("path")
+                    .classed("line", true)
+                    .attr("d", line)
+                    .attr("fill", "none")
+                    .attr("stroke", function(d) {return app.colors[_.chain(d).pluck("party").uniq().value()]; });
+                lines = chart.selectAll("path.line");
+
+                circles.data(_.flatten(data)).transition().duration(750)
+                    .attr("cx", function(d, i) {return x(d.year)})
+                    .attr("cy", function(d) {return y(d.rate)});
+                chart.selectAll("g.circles").selectAll("circle.dot")
+                    .data(_.flatten(data)).enter().append("circle")
+                    .attr("class", "dot")
+                    .attr("cx", function(d, i) {return x(d.year)})
+                    .attr("cy", function(d) {return y(d.rate)})
+                    .attr("r", 3)
+                    .attr("fill", function(d) {return app.colors[d.party]});
+                circles = chart.selectAll("circle.dot");
+
+                hoverCircles.data(_.flatten(data)).transition().duration(750)
+                    .attr("cx", function(d, i) {return x(d.year)})
+                    .attr("cy", function(d) {return y(d.rate)});
+                chart.selectAll("g.hoverCircles").selectAll("circle.dotHover")
+                    .data(_.flatten(data)).enter().append("circle")
+                    .attr("class", "dotHover")
+                    .attr("cx", function(d, i) {return x(d.year)})
+                    .attr("cy", function(d) {return y(d.rate)})
+                    .attr("r", 10);
+                hoverCircles = chart.selectAll("circle.dotHover")
+                    .call(tip)
+                    .on("mouseover", tip.show)
+                    .on("mouseleave", tip.hide);
+
+            } else {
+                lines.remove();
+                circles.remove();
+                hoverCircles.remove();
+            }
+        }
+
+        /* getter/setters */
         lineChart.data = function(value) {
             if (!arguments.length) return data;
             data = value;

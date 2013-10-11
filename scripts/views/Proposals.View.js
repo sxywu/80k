@@ -15,6 +15,7 @@ define([
         el: "#proposalsContainer",
         initialize: function() {
             this.collection = this.options.collection;
+            this.charts = {};
 
             this.collection.on("reset", _.bind(this.renderOne, this));
         },
@@ -33,12 +34,32 @@ define([
                 that = this;
 
             _.each(data, function(category, key) {
-                that.$el.append(_.template(ProposalTemplate, {key: key}));
+                that.$("#proposalContainer").append(_.template(ProposalTemplate, {key: key}));
                 var chart = new LineChartVisualization();
                 chart.data(category).yMax(parseFloat(yMax)).yMin(parseFloat(yMin));
                 chart(that.$("." + key + "Chart")[0]);
-            });
-            
+
+                that.charts[key] = chart;
+            });   
+        },
+        update: function() {
+            var model = this.collection.getProposal(),
+                data = model.getLineData(),
+                that = this;
+
+            _.each(data, function(category, key) {
+                var chart = that.charts[key];
+                chart.data(category);
+                chart.update();
+            });   
+        },
+        events: {
+            "change #monthSelect": "setMonth",
+        },
+        setMonth: function(e) {
+            var val = $(e.target).val();
+            this.collection.setMonth(val);
+            this.update();
         }
     });
 });

@@ -28,6 +28,7 @@ define([
 
             this.positions.on("change:position", _.bind(this.update, this));
             this.costs.on("change", _.bind(this.update, this));
+            this.proposals.on("change:month", _.bind(this.update, this));
         },
         render: function() {
             console.log("reset!");
@@ -83,9 +84,9 @@ define([
             _.each([0, 1, 2, 3], function(i) {
                 var obj = {};
                 lastBART.base += (raises.BART[i] ? (lastBART.base * raises.BART[i].rate) : 0);
-                lastBART.pension = (pensions.BART[i] ? (lastBART.base * pensions.BART[i].rate) : lastBART.pension);
+                lastBART.pension = (pensions.BART && pensions.BART[i] ? (lastBART.base * pensions.BART[i].rate) : lastBART.pension);
                 lastUnion.base += (raises.Union[i] ? (lastUnion.base * raises.Union[i].rate) : 0);
-                lastUnion.pension = (pensions.Union[i] ? (lastUnion.base * pensions.Union[i].rate) : lastUnion.pension);
+                lastUnion.pension = (pensions.Union && pensions.Union[i] ? (lastUnion.base * pensions.Union[i].rate) : lastUnion.pension);
                 obj.bars = [that.processPositionData(lastBART, "BART"), that.processPositionData(lastUnion, "Union")];
                 obj.cost = costTotal * Math.pow(inflation, i + 1);
 

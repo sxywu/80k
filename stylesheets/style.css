@@ -37,7 +37,10 @@
 
 /* table */
 #costsContainer table {
-  margin: 20px 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  text-align: center;
 }
 
 #costsContainer td {
@@ -46,8 +49,31 @@
 
 /* costs */
 
-h4.costLabel {
+h4.costLabel, h4.proposalLabel {
   text-align: center;
+}
+
+/* proposals */
+.BARTcolor {
+  font-family: Helvetica;
+  color: #2667B7;
+}
+
+.UnionColor {
+  font-family: Helvetica;
+
+  color: #F48512;
+}
+
+#monthSelect {
+  margin-top: 10px;
+}
+
+#proposalContainer {
+  width: 400px;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /* positions */
