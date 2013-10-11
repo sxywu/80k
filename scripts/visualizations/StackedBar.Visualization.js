@@ -13,7 +13,7 @@ define([
 ) {
     return function() {
         var data,
-            max = 125000,
+            max = 175000,
             width = 525,
             legendWidth = 225,
             barWidth = 13,

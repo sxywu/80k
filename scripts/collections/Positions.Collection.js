@@ -18,6 +18,29 @@ define([
             var that = this;
             d3.csv("data/bart-comp-all.csv", function(response) {
                 var positions = [];
+                // get managers
+                _.chain(response)
+                    .filter(function(position) {
+                        return (position.Source === "MNP") &&
+                            (position.Union !== "SEIU") &&
+                            (position.Union !== "ATU");
+                    }).groupBy(function(position) {
+                        return position.Source;
+                    }).each(function(val, key) {
+                        if (val.length > 50) {
+                            var obj = {};
+                            obj.title = "Management (not part of SEIU/ATU)";
+                            obj.raw = val;
+                            obj.base = d3.mean(_.pluck(val, "Base"));
+                            obj.overtime = d3.mean(_.pluck(val, "OT"));
+                            obj.pension = (d3.mean(_.pluck(val, "EE")) + d3.mean(_.pluck(val, "ER"))) / 2;
+                            obj.medical = d3.mean(_.pluck(val, "MDV"));
+                            obj.other = d3.mean(_.pluck(val, "Other"));
+                            positions.push(obj);
+                        }
+                    });
+
+                // get union workers
                 _.chain(response)
                     .filter(function(position) {
                         return (position.Union === "SEIU") || (position.Union === "ATU");

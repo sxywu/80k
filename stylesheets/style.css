@@ -44,7 +44,7 @@
     /*width: 800px;*/
     /*text-align: center;*/
     float:left;
-    margin-top: 30px;
+    margin-top: 10px;
     /*margin-right: auto;
     margin-left: auto;*/
 }
@@ -103,7 +103,6 @@ h4.costLabel, h4.proposalLabel {
   text-align: center;
   margin-right: auto;
   margin-left: auto;
-  margin-bottom: 30px;
 }
 
 /* positions */
