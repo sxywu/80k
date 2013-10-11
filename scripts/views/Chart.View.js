@@ -105,7 +105,7 @@ define([
         processPositionData: function(attributes, party) {
             var order = ["base", "other", "pension", "medical"],
                 starting = 0,
-                opacity = 1 / order.length,
+                opacity = .3 / (order.length - 1),
                 data = [];
 
             _.each(order, function(key, i) {
@@ -113,7 +113,7 @@ define([
                 obj.starting = starting;
                 obj.ending = starting + attributes[key];
                 obj.height = attributes[key];
-                obj.opacity = 1 - opacity * i;
+                obj.opacity = 1 - (i > 0 ? .7 : 0) - (opacity * (i - 1));
                 obj.title = key;
                 obj.party = party;
 

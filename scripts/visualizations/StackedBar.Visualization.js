@@ -21,7 +21,7 @@ define([
             barPadding = 0,
             hoverHeight = 7,
             padding = {top: 25, left: 75},
-            groups, bars, rects, dots, lines, hover, x, y;
+            groups, bars, rects, dots, lines, hover, x, y, barLegend;
 
         
 
@@ -61,6 +61,7 @@ define([
                 .attr("transform", function(d, i) {return "translate(" + (i * (barWidth + 2 * barPadding)) + ", 0)"});
 
             rects = bars.selectAll("rect").data(function(d) {return d;}).enter().append("rect")
+                .attr("class", function(d) {return d.title + "Bar"})
                 .attr("x", barPadding)
                 .attr("y", function(d) {return height - y(d.ending)})
                 .attr("width", barWidth)
@@ -163,19 +164,34 @@ define([
                 .attr("dy", ".25em")
                 .text("Cost of living (Annual)");
 
-            var barLegend = svg.selectAll("g.barLegend").data(data[0].bars)
+            barLegend = svg.selectAll("g.barLegend").data(data[0].bars)
                 .enter().append("g").classed("barLegend", true)
                 .attr("transform", function(d, i) {
                     return "translate(0, " + (2 * padding.top + i * barWidth) + ")";
                 });
             barLegend.selectAll("rect").data(function(d) {return d})
-                .enter().append("rect")
+                .enter().append("rect").attr("class", function(d) {return d.title + "Bar"})
                 .attr("x", function(d, i) {return i * (legendWidth / 4)})
                 .attr("y", 0)
                 .attr("width", legendWidth / 4)
                 .attr("height", barWidth)
                 .attr("opacity", function(d) {return d.opacity})
                 .attr("fill", function(d) {return app.colors[d.party]});
+
+            var legendHover = svg.append("g").classed("legendHover", true)
+                .attr("transform", "translate(0," + 2 * padding.top + ")")
+                .on("mouseleave", function() {stackedBar.update(0)});
+
+            legendHover.selectAll("rect.hover").data(data[0].bars[0]).enter()
+                .append("rect").attr("class", "hover")
+                .attr("x", function(d, i) {return i * (legendWidth / 4)})
+                .attr("y", 0)
+                .attr("width", legendWidth / 4)
+                .attr("height", barWidth * 2)
+                .attr("opacity", 0)
+                .style("cursor", "pointer")
+                .on("mouseover", legendMouseover);
+
             svg.selectAll("text.barText").data(data[0].bars[0])
                 .enter().append("text").classed("barText", true)
                 .attr("x", function(d, i) {return i * (legendWidth / 4)})
@@ -185,15 +201,20 @@ define([
 
         }
 
-        stackedBar.update = function() {
+        stackedBar.update = function(duration) {
+            duration = (duration !== undefined ? duration : 750);
+            console.log("update");
             groups.data(data);
             bars.data(function(d) {return d.bars});
-            rects.data(function(d) {return d}).transition().duration(750)
+            rects.data(function(d) {return d}).transition().duration(duration)
                 .attr("y", function(d) {return height - y(d.ending)})
-                .attr("height", function(d) {return y(d.height)});
+                .attr("height", function(d) {return y(d.height)})
+                .attr("opacity", function(d) {return d.opacity});
+            barLegend.selectAll("rect").attr("opacity", function(d) {return d.opacity});
+
             dots.each(function(d, i) {
                 d = data[i];
-                d3.select(this).datum(d).transition().duration(750)
+                d3.select(this).datum(d).transition().duration(duration)
                     .attr("cy", function(d) {return height - y(d.cost)})
                     .attr("fill", function(d) {
                         if (d.cost > d.bars[0][0].ending) {
@@ -204,7 +225,7 @@ define([
             });
             lines.each(function(d, i) {
                 d = data[i];
-                d3.select(this).datum(d).transition().duration(750)
+                d3.select(this).datum(d).transition().duration(duration)
                     .attr("y1", function(d) {return height - y(d.cost)})
                     .attr("y2", function(d) {return height - y(d.cost)})
                     .attr("stroke", function(d) {
@@ -216,9 +237,17 @@ define([
             });
             hover.each(function(d, i) {
                 d = data[i];
-                d3.select(this).datum(d).transition().duration(750)
+                d3.select(this).datum(d).transition().duration(duration)
                     .attr("y", function(d) {return height - y(d.cost) - (hoverHeight / 2)});
             });
+        }
+
+        /* events */
+        function legendMouseover(d) {
+            rects.attr("opacity", 0.1);
+            barLegend.selectAll("rect").attr("opacity", 0.1);
+            barLegend.selectAll("." + d.title + "Bar").attr("opacity", 1);
+            bars.selectAll("." + d.title + "Bar").attr("opacity", 1);
         }
 
         /* getter/setters */

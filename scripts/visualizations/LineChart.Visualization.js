@@ -33,6 +33,7 @@ define([
                     .y(function(d, i) {return y(d.rate)});
             tip = d3.tip().attr('class', 'd3-tip')
                     .direction("e")
+                    .style("pointer-events", "none")
                     .html(function(d) {
                         return _.template(ProposalHoverTemplate, d); 
                     });
