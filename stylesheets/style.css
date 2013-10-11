@@ -35,6 +35,15 @@
     float: left;
 }
 
+/* table */
+#costsContainer table {
+  margin: 20px 30px;
+}
+
+#costsContainer td {
+  padding: 2px 15px;
+}
+
 /* positions */
 .position {
     /*display: inline-block;*/
