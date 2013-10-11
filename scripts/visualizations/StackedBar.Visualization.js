@@ -15,7 +15,7 @@ define([
         var data,
             max = 175000,
             width = 525,
-            legendWidth = 225,
+            legendWidth = 250,
             barWidth = 13,
             height = 300,
             barPadding = 0,

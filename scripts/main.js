@@ -38,7 +38,7 @@ require([
     AppView
 ) {
     app = {};
-    app.colors = {BART: "#2667B7", Union: "#F48512", green: "#859900", red: "#dc322f"};
+    app.colors = {BART: "#2667B7", Union: "#F48512", green: "#BEF202", red: "#dc322f"};
     var appView = new AppView();
     appView.render();
 });
