@@ -25,6 +25,8 @@ define([
             this.positions.on("reset", _.bind(this.resetPositions, this));
             this.proposals.on("reset", _.bind(this.resetProposals, this));
             this.costs.on("reset", _.bind(this.resetCosts, this));
+
+            this.positions.on("change:position", _.bind(this.update, this));
         },
         render: function() {
             console.log("reset!");
@@ -33,6 +35,10 @@ define([
             this.chart(this.$("#chart")[0]);
             this.chart.legend(this.$("#legend")[0]);
 
+        },
+        update: function() {
+            this.chart.data(this.processData());
+            this.chart.update();
         },
         resetPositions: function() {
             if (gotProposals && gotCosts) {
@@ -89,6 +95,12 @@ define([
             return data;
 
         },
+        /*
+        process the data for StackedBar, returning an array of objects:
+            - starting (int)
+            - ending (int)
+            - opacity
+        */
         processPositionData: function(attributes, party) {
             var order = ["base", "other", "pension", "medical"],
                 starting = 0,

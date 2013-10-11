@@ -22,13 +22,8 @@ define([
     */
     return Backbone.Model.extend({
         initialize: function() {
+
         },
-        /*
-        process the data for StackedBar, returning an array of objects:
-            - starting (int)
-            - ending (int)
-            - opacity
-        */
         total: function() {
             var keys = ["medical", "pension", "other", "base"],
                 sum = 0,

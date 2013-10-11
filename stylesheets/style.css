@@ -45,15 +45,25 @@
 }
 
 /* positions */
+
 .position {
-    /*display: inline-block;*/
-    margin: 2px 0px;
+    cursor: pointer;
+}
+
+.position:hover {
+  border-bottom: 2px solid #F48512;
 }
 
 .money {
     /*font-size: 1.15em;*/
     font-family: Helvetica;
     font-weight: 600;
+}
+
+.showing {
+    border-bottom: 2px solid #2667B7;
+    /*font-size: 1.15em;
+    color: #2667B7;*/
 }
 
 /* svg */

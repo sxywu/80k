@@ -14,12 +14,22 @@ define([
         initialize: function() {
             this.model = this.options.model;
 
-
+            this.model.on("change:showing", _.bind(this.setShowing, this));
         },
         render: function() {
             this.$el.html(_.template(Template, this.model.attributes));
 
             return this;
+        },
+        setShowing: function() {
+            this.$el.addClass("showing");
+        },
+        events: {
+            "click": "click"
+        },
+        click: function() {
+            this.$el.trigger("position:clicked", [this.model.get("title")]);
+            this.setShowing();
         }
     });
 });

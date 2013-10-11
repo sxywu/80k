@@ -15,6 +15,7 @@ define([
             this.collection = this.options.collection;
 
             this.collection.on("reset", _.bind(this.renderAll, this));
+            // this.collection.on("")
         },
         render: function() {
             this.collection.fetch();
@@ -30,6 +31,13 @@ define([
         renderOne: function(model) {
             var view = new PositionView({model: model});
             this.$el.append(view.render().el);
+        },
+        events: {
+            "position:clicked .position": "positionClicked"
+        },
+        positionClicked: function(e, position) {
+            this.$(".position").removeClass("showing");
+            this.collection.setPosition(position);
         }
     });
 });

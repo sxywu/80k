@@ -13,26 +13,27 @@ define([
 ) {
     return function() {
         var data,
-            max = 150000,
+            max = 125000,
             width = 525,
             legendWidth = 225,
             barWidth = 13,
             height = 300,
             barPadding = 0,
             hoverHeight = 7,
-            padding = {top: 25, left: 75};
+            padding = {top: 25, left: 75},
+            groups, bars, rects, dots, lines, hover, x, y;
 
         
 
         function stackedBar(selection) {     
 
-            var x = d3.scale.linear()
+            x = d3.scale.linear()
                     .domain([2013, 2017])
-                    .range([0, width - padding.left]),
-                y = d3.scale.linear()
+                    .range([0, width - padding.left]);
+            y = d3.scale.linear()
                     .domain([0, max])
-                    .range([0, height - padding.top])
-                yAxisScale = d3.scale.linear()
+                    .range([0, height - padding.top]);
+            var yAxisScale = d3.scale.linear()
                     .domain([max, 0])
                     .range([0, height - padding.top]);
 
@@ -49,17 +50,17 @@ define([
 
             var svg = d3.select(selection);
 
-            var groups = svg.selectAll("g.bars")
+            groups = svg.selectAll("g.bars")
                 .data(data).enter().append("g").classed("bars", true)
                 .attr("transform", function(d, i) {
                     return "translate(" + (x(i + 2013) + padding.left) + ", 0)";
                 });
 
-            var bars = groups.selectAll("g.bar").data(function(d) {return d.bars})
+            bars = groups.selectAll("g.bar").data(function(d) {return d.bars})
                 .enter().append("g").classed("bar", true)
                 .attr("transform", function(d, i) {return "translate(" + (i * (barWidth + 2 * barPadding)) + ", 0)"});
 
-            var rects = bars.selectAll("rect").data(function(d) {return d;}).enter().append("rect")
+            rects = bars.selectAll("rect").data(function(d) {return d;}).enter().append("rect")
                 .attr("x", barPadding)
                 .attr("y", function(d) {return height - y(d.ending)})
                 .attr("width", barWidth)
@@ -71,7 +72,7 @@ define([
                 .on("mouseover", rectTip.show)
                 .on("mouseleave", rectTip.hide);
 
-            var dots = groups.append("circle")
+            dots = groups.append("circle")
                 .attr("cx", barPadding + barWidth)
                 .attr("cy", function(d) {return height - y(d.cost)})
                 .attr("r", 3)
@@ -82,7 +83,7 @@ define([
                     return app.colors.green;
                 });
 
-            var lines = groups.append("line")
+            lines = groups.append("line")
                 .attr("x1", 0)
                 .attr("x2", 2 * barWidth)
                 .attr("y1", function(d) {return height - y(d.cost)})
@@ -95,7 +96,7 @@ define([
                     return app.colors.green;
                 });
 
-            var hover = groups.append("rect")
+            hover = groups.append("rect")
                 .attr("x", barPadding)
                 .attr("y", function(d) {return height - y(d.cost) - (hoverHeight / 2)})
                 .attr("width", 2 * barWidth)
@@ -181,6 +182,19 @@ define([
                 .attr("text-anchor", "start")
                 .text(function(d) {return d.title});
 
+        }
+
+        stackedBar.update = function() {
+            console.log("update");
+            groups.data(data);
+            bars.data(function(d) {return d.bars});
+            rects.data(function(d) {return d}).transition().duration(750)
+                .attr("y", function(d) {return height - y(d.ending)})
+                .attr("height", function(d) {return y(d.height)});
+            dots.attr("cy", function(d) {return height - y(d.cost)});
+            lines.attr("y1", function(d) {return height - y(d.cost)})
+                .attr("y2", function(d) {return height - y(d.cost)});
+            hover.attr("y", function(d) {return height - y(d.cost) - (hoverHeight / 2)});
         }
 
         /* getter/setters */

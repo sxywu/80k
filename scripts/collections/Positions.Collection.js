@@ -38,11 +38,12 @@ define([
                     });
 
                 that.reset(positions);
+                that.getPosition().set("showing", true);
             });
         },
-        setPosition: function(position) {
+        setPosition: function(position, silent) {
             defaultPosition = position;
-            this.trigger("change:position");
+            if (!silent) this.trigger("change:position");
         },
         getPosition: function() {
             return this.find(function(model) {
