@@ -12,6 +12,12 @@
   color: #555;
 }
 
+.row {
+  width: 850px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 /*
   header
 */
@@ -36,7 +42,7 @@
   content
 */
 #costsContainer, #proposalsContainer {
-    width: 450px;
+    width: 425px;
     float: left;
 }
 
@@ -70,9 +76,12 @@
 }
 
 #costsContainer td {
-  padding: 2px 15px;
+  padding: 3px 15px;
 }
 
+.proposalCategory {
+  width: 100px;
+}
 /* costs */
 h4 {
   font-family: Helvetica;
