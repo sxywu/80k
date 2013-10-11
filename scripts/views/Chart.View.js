@@ -27,6 +27,7 @@ define([
             this.costs.on("reset", _.bind(this.resetCosts, this));
 
             this.positions.on("change:position", _.bind(this.update, this));
+            this.costs.on("change", _.bind(this.update, this));
         },
         render: function() {
             console.log("reset!");

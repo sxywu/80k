@@ -44,6 +44,12 @@
   padding: 2px 15px;
 }
 
+/* costs */
+
+h4.costLabel {
+  text-align: center;
+}
+
 /* positions */
 
 .position {

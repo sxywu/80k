@@ -36,6 +36,7 @@ define([
                         return cost;
                     }).value();
 
+                console.log(costs);
                 that.reset(costs);
             });
         },
@@ -48,12 +49,12 @@ define([
         setShowingCity: function(city) {
             showingCost.city = city;
 
-            this.trigger("change:city");
+            this.trigger("change");
         },
         setShowingType: function(type) {
             showingCost.TYPE = type;
 
-            this.trigger("change:type");
+            this.trigger("change");
         },
         getCost: function() {
             return this.find(function(model) {

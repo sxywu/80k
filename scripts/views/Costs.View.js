@@ -28,6 +28,20 @@ define([
                 monthly: model.get("Monthly Total"),
                 annual: model.get("Annual Total")
             }));
+        },
+        events: {
+            "change #householdSelect": "setType",
+            "change #citySelect": "setCity"
+        },
+        setType: function(e) {
+            var val = $(e.target).val()
+            this.collection.setShowingType(val);
+            this.renderOne();
+        },
+        setCity: function(e) {
+            var val = $(e.target).val()
+            this.collection.setShowingCity(val);
+            this.renderOne();
         }
     });
 });

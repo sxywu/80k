@@ -73,6 +73,7 @@ define([
                 .on("mouseleave", rectTip.hide);
 
             dots = groups.append("circle")
+                .classed("dot", true)
                 .attr("cx", barPadding + barWidth)
                 .attr("cy", function(d) {return height - y(d.cost)})
                 .attr("r", 3)
@@ -97,6 +98,7 @@ define([
                 });
 
             hover = groups.append("rect")
+                .classed("hover", true)
                 .attr("x", barPadding)
                 .attr("y", function(d) {return height - y(d.cost) - (hoverHeight / 2)})
                 .attr("width", 2 * barWidth)
@@ -191,10 +193,34 @@ define([
             rects.data(function(d) {return d}).transition().duration(750)
                 .attr("y", function(d) {return height - y(d.ending)})
                 .attr("height", function(d) {return y(d.height)});
-            dots.attr("cy", function(d) {return height - y(d.cost)});
-            lines.attr("y1", function(d) {return height - y(d.cost)})
-                .attr("y2", function(d) {return height - y(d.cost)});
-            hover.attr("y", function(d) {return height - y(d.cost) - (hoverHeight / 2)});
+            dots.each(function(d, i) {
+                d = data[i];
+                d3.select(this).datum(d).transition().duration(750)
+                    .attr("cy", function(d) {return height - y(d.cost)})
+                    .attr("fill", function(d) {
+                        if (d.cost > d.bars[0][0].ending) {
+                            return app.colors.red;
+                        }
+                        return app.colors.green;
+                    });
+            });
+            lines.each(function(d, i) {
+                d = data[i];
+                d3.select(this).datum(d).transition().duration(750)
+                    .attr("y1", function(d) {return height - y(d.cost)})
+                    .attr("y2", function(d) {return height - y(d.cost)})
+                    .attr("stroke", function(d) {
+                        if (d.cost > d.bars[0][0].ending) {
+                            return app.colors.red;
+                        }
+                        return app.colors.green;
+                    });
+            });
+            hover.each(function(d, i) {
+                d = data[i];
+                d3.select(this).datum(d).transition().duration(750)
+                    .attr("y", function(d) {return height - y(d.cost) - (hoverHeight / 2)});
+            });
         }
 
         /* getter/setters */
