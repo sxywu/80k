@@ -16,7 +16,7 @@ define([
             yMax = 0.08,
             yMin = 0,
             tickValues = [0, 0.04, 0.08],
-            width = 200,
+            width = 250,
             height = 75,
             padding = {right: 35, left: 10, top: 15, bottom: 15};
 
