@@ -48,6 +48,9 @@
 }
 
 /* costs */
+h4 {
+  font-family: Helvetica;
+}
 
 h4.costLabel, h4.proposalLabel {
   text-align: center;
@@ -96,6 +99,33 @@ h4.costLabel, h4.proposalLabel {
     border-bottom: 2px solid #2667B7;
     /*font-size: 1.15em;
     color: #2667B7;*/
+}
+
+/* footer */
+#footer {
+  float: left;
+  width: 900px;
+  text-align: center;
+  border-top: 1px dashed #666;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+
+.fbImg {
+  width: 70px;
+  border-radius: 35px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 1.25em;
+  margin: 10px;
+}
+.socialImg {
+  width: 25px;
+  border-radius: 3px;
 }
 
 /* svg */
