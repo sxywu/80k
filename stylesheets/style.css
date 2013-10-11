@@ -20,11 +20,16 @@
   width: 900px;
   /*text-align: center;*/
   /*padding-bottom: 20px;*/
+  padding: 5px 20px;
   margin-bottom: 20px;
 }
 
 #header h2 {
   text-align: center;
+}
+
+#header p {
+  text-align: justify;
 }
 
 /*
@@ -129,6 +134,10 @@ h4.costLabel, h4.proposalLabel {
   border-top: 1px dashed #666;
   padding-top: 50px;
   padding-bottom: 100px;
+}
+
+#contact {
+  padding-top: 50px;
 }
 
 .fbImg {
