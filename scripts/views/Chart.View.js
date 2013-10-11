@@ -31,12 +31,14 @@ define([
             this.proposals.on("change:month", _.bind(this.update, this));
         },
         render: function() {
+            this.$(".employeePosition").html(this.positions.getPosition().get("title"));
             this.chart.data(this.processData());
             this.chart(this.$("#chart")[0]);
             this.chart.legend(this.$("#legend")[0]);
 
         },
         update: function() {
+            this.$(".employeePosition").html(this.positions.getPosition().get("title"));
             this.chart.data(this.processData());
             this.chart.update();
         },
