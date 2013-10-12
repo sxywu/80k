@@ -39,6 +39,7 @@ require([
 ) {
     app = {};
     app.colors = {BART: "#2667B7", Union: "#F48512", darkGreen: "#859900", green: "#BEF202", red: "#dc322f"};
+    app.editable = false;
     var appView = new AppView();
     appView.render();
 });

@@ -79,7 +79,8 @@ define([
                 .attr("cy", function(d) {return height - y(d.cost)})
                 .attr("r", 3)
                 .attr("fill", function(d) {
-                    if (d.cost > d.bars[0][0].ending) {
+                    if (d.cost > d.bars[0][0].ending
+                        && d.cost > d.bars[1][0].ending) {
                         return app.colors.red;
                     }
                     return app.colors.green;
@@ -92,7 +93,8 @@ define([
                 .attr("y2", function(d) {return height - y(d.cost)})
                 .attr("fill", "none")
                 .attr("stroke", function(d) {
-                    if (d.cost > d.bars[0][0].ending) {
+                    if (d.cost > d.bars[0][0].ending
+                        && d.cost > d.bars[1][0].ending) {
                         return app.colors.red;
                     }
                     return app.colors.green;
@@ -201,7 +203,6 @@ define([
 
         stackedBar.update = function(duration) {
             duration = (duration !== undefined ? duration : 750);
-            console.log("update");
             groups.data(data);
             bars.data(function(d) {return d.bars});
             rects.data(function(d) {return d}).transition().duration(duration)
@@ -215,7 +216,8 @@ define([
                 d3.select(this).datum(d).transition().duration(duration)
                     .attr("cy", function(d) {return height - y(d.cost)})
                     .attr("fill", function(d) {
-                        if (d.cost > d.bars[0][0].ending) {
+                        if (d.cost > d.bars[0][0].ending
+                            && d.cost > d.bars[1][0].ending) {
                             return app.colors.red;
                         }
                         return app.colors.green;
@@ -227,7 +229,8 @@ define([
                     .attr("y1", function(d) {return height - y(d.cost)})
                     .attr("y2", function(d) {return height - y(d.cost)})
                     .attr("stroke", function(d) {
-                        if (d.cost > d.bars[0][0].ending) {
+                        if (d.cost > d.bars[0][0].ending
+                            && d.cost > d.bars[1][0].ending) {
                             return app.colors.red;
                         }
                         return app.colors.green;

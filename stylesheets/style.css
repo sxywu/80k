@@ -213,7 +213,6 @@ h4.costLabel, h4.proposalLabel {
 
 .dotHover {
     opacity: 0;
-    cursor: pointer;
 }
 
 .d3-tip {

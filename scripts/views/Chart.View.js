@@ -28,7 +28,7 @@ define([
 
             this.positions.on("change:position", _.bind(this.update, this));
             this.costs.on("change", _.bind(this.update, this));
-            this.proposals.on("change:month", _.bind(this.update, this));
+            this.proposals.on("change", _.bind(this.update, this));
         },
         render: function() {
             this.$(".employeePosition").html(this.positions.getPosition().get("title"));
@@ -37,10 +37,10 @@ define([
             this.chart.legend(this.$("#legend")[0]);
 
         },
-        update: function() {
+        update: function(duration) {
             this.$(".employeePosition").html(this.positions.getPosition().get("title"));
             this.chart.data(this.processData());
-            this.chart.update();
+            this.chart.update(duration);
         },
         resetPositions: function() {
             if (gotProposals && gotCosts) {
