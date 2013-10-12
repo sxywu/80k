@@ -203,6 +203,7 @@ define([
 
         stackedBar.update = function(duration) {
             duration = (duration !== undefined ? duration : 750);
+            console.log(duration);
             groups.data(data);
             bars.data(function(d) {return d.bars});
             rects.data(function(d) {return d}).transition().duration(duration)

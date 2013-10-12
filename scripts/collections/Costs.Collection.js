@@ -22,20 +22,33 @@ define([
     showingCost = _.clone(defaultCost);
     return Backbone.Collection.extend({
         model: CostModel,
+        initialize: function() {
+            this.showingCost = showingCost;
+            this.defaultCost = defaultCost;
+
+            this.on("reset", _.bind(this.updateModels, this));
+        },
         fetch: function() {
             var that = this;
             d3.csv("data/ca-family-budget.csv", function(response) {
                 var costs = _.chain(response)
-                    .filter(function(cost) {
-                        return _.contains(_.keys(cities), cost.AREANAME);
-                    }).map(function(cost) {
-                        cost.City = cities[cost.AREANAME];
-                        delete cost.AREANAME;
-                        delete cost.STATE;
+                        .filter(function(cost) {
+                            return _.contains(_.keys(cities), cost.AREANAME);
+                        }).map(function(cost) {
+                            cost.City = cities[cost.AREANAME];
+                            delete cost.AREANAME;
+                            delete cost.STATE;
 
-                        return cost;
-                    }).value();
-
+                            return cost;
+                        }).value(),
+                    custom = _.chain(costs)
+                        .find(function(d) {
+                            return (d.City === showingCost.city)
+                                && (d.TYPE === showingCost.TYPE);
+                        }).clone().value();
+                custom.City = "Custom";
+                custom.TYPE = "Custom";
+                costs.push(custom);
                 that.reset(costs);
             });
         },
@@ -46,19 +59,43 @@ define([
             return defaultCost;
         },
         setShowingCity: function(city) {
+            if (showingCost.city === "Custom") {
+                showingCost.TYPE = defaultCost.TYPE;
+            }
             showingCost.city = city;
 
-            this.trigger("change");
+            if (city === "Custom") {
+                showingCost.TYPE = "Custom";
+            } else {
+                this.trigger("change");
+            }
         },
         setShowingType: function(type) {
+            if (showingCost.TYPE === "Custom") {
+                showingCost.city = defaultCost.city;
+            }
             showingCost.TYPE = type;
 
-            this.trigger("change");
+            if (type === "Custom") {
+                showingCost.city = "Custom";
+            } else {
+                this.trigger("change");
+            }
         },
         getCost: function() {
             return this.find(function(model) {
                 return (model.get("City") === showingCost.city)
                     && (model.get("TYPE") === showingCost.TYPE);
+            });
+        },
+        updateModels: function() {
+            var that = this;
+
+            this.each(function(model) {
+                model.on("change", function() {
+                    console.log("trigger");
+                    that.trigger("change");
+                });
             });
         }
     });

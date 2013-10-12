@@ -4,8 +4,9 @@
         <td>
             <%= key %>
         </td>
-        <td class="money">
-            <%= val %>
+        <td>
+            <div class="costAmount money"><%= val %></div>
+            <input class="costEdit" type="text" name="<%= key %>" value="<%= val %>" style="display:none" />
         </td>
     </tr>
 <% }); %>
@@ -15,7 +16,7 @@
             Monthly Total
         </td>
         <td class="money">
-            <%= monthly %>
+            $<%= d3.format(",f")(monthly) %>
         </td>
     </tr>
     <tr class="annualTotal">
@@ -23,7 +24,7 @@
             Annual Total
         </td>
         <td class="money">
-            <%= annual %>
+            $<%= d3.format(",f")(annual) %>
         </td>
     </tr>
 </table>

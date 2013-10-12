@@ -106,6 +106,13 @@ h4.costLabel, h4.proposalLabel {
   text-align: center;
 }
 
+input.costEdit[type="text"] {
+  padding: 10px 5px;
+  margin: 2px;
+  text-align: center;
+  font-family: Helvetica;
+}
+
 /* proposals */
 .BARTcolor {
   font-family: Helvetica;

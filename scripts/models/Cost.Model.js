@@ -32,10 +32,21 @@ define([
 
             return json;
         },
+        monthlyTotal: function() {
+            var that = this,
+                sum = _.reduce(this.getExpenses(), function(memo, num) {
+                    return that.toInt(num) + memo;
+                }, 0);
+            return sum;
+        },
         total: function() {
-            var total = this.get("Annual Total");
-            total = total.replace("$", "").replace(",", "");
-            return parseInt(total);
+            // var total = this.get("Annual Total");
+            // total = total.replace("$", "").replace(",", "");
+            return this.monthlyTotal() * 12;
+        },
+        toInt: function(str) {
+            return parseInt(str.replace("$", "").replace(",", ""));
         }
+
     });
 });
