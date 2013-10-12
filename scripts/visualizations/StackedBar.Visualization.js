@@ -120,8 +120,6 @@ define([
                     .orient("bottom"),
                 yAxis = d3.svg.axis()
                     .scale(yAxisScale)
-                    // .tickValues(tickValues)
-                    // .tickFormat(d3.format("%"))
                     .orient("left");
 
             var xAxisG = svg.append("g")

@@ -80,6 +80,16 @@ body {
   text-align: center;
 }
 
+.monthlyTotal {
+  font-size: 1.15em;
+  border-top: 1px solid #666;
+}
+
+.annualTotal {
+  font-size: 1.25em;
+  border-top: 3px double #666;
+}
+
 #costsContainer td {
   padding: 3px 15px;
 }
