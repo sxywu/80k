@@ -19,7 +19,19 @@ define([
             width = 250,
             height = 75,
             padding = {right: 35, left: 10, top: 15, bottom: 15},
-            lines, circles, hoverCircles, x, y, reverseY, reverseX, line, tip, drag;
+            lines, circles, hoverCircles, x, y, reverseY, reverseX, line, drag,
+            tip = d3.tip().attr('class', 'd3-tip')
+                .direction("e")
+                .style("pointer-events", "none")
+                .html(function(d) {
+                    return _.template(ProposalHoverTemplate, d); 
+                }),
+            moveTip = d3.tip().attr('class', 'd3-tip')
+                .direction("e")
+                .style("pointer-events", "none")
+                .html(function(rate) {
+                    return (rate * 100).toFixed(1) + "%"; 
+                });
 
         function lineChart(selection) {
             x = d3.scale.linear()
@@ -37,12 +49,6 @@ define([
             line = d3.svg.line()
                     .x(function(d, i) {return x(d.year); })
                     .y(function(d, i) {return y(d.rate)});
-            tip = d3.tip().attr('class', 'd3-tip')
-                    .direction("e")
-                    .style("pointer-events", "none")
-                    .html(function(d) {
-                        return _.template(ProposalHoverTemplate, d); 
-                    });
             var yAxis = d3.svg.axis()
                     .scale(y).tickValues(tickValues)
                     .tickFormat(d3.format("%"))
@@ -88,6 +94,7 @@ define([
                     .attr("cy", function(d) {return y(d.rate)})
                     .attr("r", 10)
                     .call(tip)
+                    .call(moveTip)
                     .on("mouseover", tip.show)
                     .on("mouseleave", tip.hide)
                     .call(drag);
@@ -131,8 +138,10 @@ define([
                     .attr("r", 10);
                 hoverCircles = chart.selectAll("circle.dotHover")
                     .call(tip)
+                    .call(moveTip)
                     .on("mouseover", tip.show)
-                    .on("mouseleave", tip.hide);
+                    .on("mouseleave", tip.hide)
+                    .call(drag);
 
             } else {
                 lines.remove();
@@ -151,6 +160,8 @@ define([
                         k = key + "," + d.party; 
                     rate = (rate < yMin ? yMin : rate);
                     rate = (rate > yMax ? yMax : rate);
+                    d3.event.target = this;
+                    moveTip.show(rate);
 
                     array = _.pluck(array, "rate");
                     array[x] = rate;
@@ -159,20 +170,7 @@ define([
                     $(chart[0][0]).trigger("chart:update", [k, array]);
 
                 }
-                // if (d.party === "BART") {
-                //     arrayUpdate = _.clone(data[0]);
-                //     arrayUpdate[x].rate = rate;
-                //     arraySame = _.clone(data[1]);
-
-                //     $(chart[0][0]).trigger("chart:update", [lineChart, [arrayUpdate, arraySame]]);
-                // } else {
-                //     arrayUpdate = _.clone(data[1]);
-                //     arrayUpdate[x].rate = rate;
-                //     arraySame = _.clone(data[0]);
-
-                //     $(chart[0][0]).trigger("chart:update", [lineChart, [arraySame, arrayUpdate]]);
-                // }
-            });
+            }).on("dragend", moveTip.hide);
 
         lineChart.editing = function() {
             tip.style("display", "none");
