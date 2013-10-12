@@ -63,7 +63,6 @@ define([
             
             $(".costEdit").show();
             $(".costAmount").hide();
-            console.log(this.$(".costEdit").css("display"));
         },
         hideEditable: function() {
             $(".costAmount").show();
