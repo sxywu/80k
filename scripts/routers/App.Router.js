@@ -26,20 +26,40 @@ define([
 				city = invertedCities[this.chart.costs.getShowingCity()],
 				month = this.chart.proposals.getMonth(),
 				position = this.chart.positions.getPos(),
-				array = [type, city, month, position],
-				str = "";
+				kv = {type: type, city: city, month: month, position: position},
+				length = _.keys(kv).length,
+				str = "",
+				i = 0,
+				kind = "",
+				that = this;
 
-			_.each(array, function(thing, i) {
-				str += thing;
-				if (i < array.length - 1) {
+			_.each(kv, function(val, key) {
+				if (val === "Custom") {
+					if (kind) {
+						kind = "custom/all/";
+					} else if (key === "city") {
+						kind = "custom/costs/";
+
+					} else if (key === "month") {
+						kind = "custom/proposals/"
+						str += that.chart.proposals.getCustomURL();
+					}
+				} else {
+					str += val;	
+				}
+				if (i < length - 1) {
 					str += "/";
 				}
+
+				i += 1;
 			});
 
-			this.navigate(str, {replace: true});
+			console.log(kind + str);
+			this.navigate(kind + str, {replace: true});
 		},
 		routes: {
-			":type/:city/:month/:position": "defaultRoute"
+			":type/:city/:month/:position": "defaultRoute",
+			"custom/proposals/:type/:city/:proposal/:position": "customProposal"
 		},
 		defaultRoute: function(type, city, month, position) {
 			var that = this;
@@ -47,10 +67,25 @@ define([
 				$("#householdSelect").val(type);
 				$("#citySelect").val(cities[city]);
 				$("#monthSelect").val(month);
-				that.chart.costs.setShowingCity(cities[city], {silent: true});
-				that.chart.costs.setShowingType(type, {silent: true});
-				that.chart.proposals.setMonth(month, {silent: true});
-				that.chart.positions.setPosition(position, {silent: true});
+				that.chart.costs.setShowingCity(cities[city]);
+				that.chart.costs.setShowingType(type);
+				that.chart.proposals.setMonth(month);
+				that.chart.positions.setPosition(position);
+			});
+		},
+		customProposal: function(type, city, proposal, position) {
+			var that = this;
+			this.chart.on("rendered", function() {
+				$("#householdSelect").val(type);
+				$("#citySelect").val(cities[city]);
+				$("#monthSelect").val("Custom");
+				that.chart.costs.setShowingCity(cities[city]);
+				that.chart.costs.setShowingType(type);
+				that.chart.positions.setPosition(position);
+
+				that.chart.proposals.setMonth("Custom", {silent: true});
+				that.chart.proposals.setCustomURL(proposal);
+
 			});
 		}
 	});

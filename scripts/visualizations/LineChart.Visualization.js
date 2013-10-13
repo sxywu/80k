@@ -165,7 +165,7 @@ define([
 
                     array = _.pluck(array, "rate");
                     array[x] = rate;
-                    array = _.map(array, function(r) {return r * 100});
+                    array = _.map(array, function(r) {return (r * 100).toFixed(1)});
                     
                     $(chart[0][0]).trigger("chart:update", [k, array]);
 

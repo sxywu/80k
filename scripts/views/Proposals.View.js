@@ -20,6 +20,7 @@ define([
             this.charts = {};
 
             this.collection.on("reset", _.bind(this.renderOne, this));
+            this.collection.on("change", _.bind(this.update, this));
         },
         render: function() {
             this.collection.fetch();
@@ -76,7 +77,6 @@ define([
                 }
             });
             this.collection.setMonth(val);
-            this.update();
         }
     });
 });
