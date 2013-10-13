@@ -11,7 +11,7 @@ define([
     d3,
     PositionModel
 ) {
-    var defaultPosition = "Station Agent";
+    var defaultPosition = "Station_Agent";
     return Backbone.Collection.extend({
         model: PositionModel,
         fetch: function() {
@@ -49,7 +49,7 @@ define([
                     }).each(function(val, key) {
                         if (val.length > 50) {
                             var obj = {};
-                            obj.title = key;
+                            obj.title = key.replace(" ", "_");
                             obj.raw = val;
                             obj.base = d3.mean(_.pluck(val, "Base"));
                             obj.overtime = d3.mean(_.pluck(val, "OT"));
@@ -64,9 +64,14 @@ define([
                 that.getPosition().set("showing", true);
             });
         },
-        setPosition: function(position, silent) {
+        setPosition: function(position, options) {
+            options = options || {};
             defaultPosition = position;
-            if (!silent) this.trigger("change:position");
+            if (!options.silent) this.trigger("change");
+        },
+        /* returns the string as opposed to the model */
+        getPos: function() {
+            return defaultPosition;
         },
         getPosition: function() {
             return this.find(function(model) {

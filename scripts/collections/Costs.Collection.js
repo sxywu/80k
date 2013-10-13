@@ -58,7 +58,8 @@ define([
         getDefault: function() {
             return defaultCost;
         },
-        setShowingCity: function(city) {
+        setShowingCity: function(city, options) {
+            options = options || {};
             if (showingCost.city === "Custom") {
                 showingCost.TYPE = defaultCost.TYPE;
             }
@@ -66,11 +67,12 @@ define([
 
             if (city === "Custom") {
                 showingCost.TYPE = "Custom";
-            } else {
+            } else if (!options.silent) {
                 this.trigger("change");
             }
         },
-        setShowingType: function(type) {
+        setShowingType: function(type, options) {
+            options = options || {};
             if (showingCost.TYPE === "Custom") {
                 showingCost.city = defaultCost.city;
             }
@@ -78,9 +80,15 @@ define([
 
             if (type === "Custom") {
                 showingCost.city = "Custom";
-            } else {
+            } else if (!options.silent) {
                 this.trigger("change");
             }
+        },
+        getShowingCity: function() {
+            return showingCost.city;
+        },
+        getShowingType: function() {
+            return showingCost.TYPE;
         },
         getCost: function() {
             return this.find(function(model) {

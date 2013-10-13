@@ -28,9 +28,15 @@ define([
                 that.reset(data);
             });
         },
-        setMonth: function(month) {
+        setMonth: function(month, options) {
+            options = options || {};
             defaultMonth = month;
-            this.trigger("change");
+            if (!options.silent) {
+                this.trigger("change");
+            }
+        },
+        getMonth: function(month) {
+            return defaultMonth;
         },
         getProposal: function() {
             return model = this.find(function(proposal) {

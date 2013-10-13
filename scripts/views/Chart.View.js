@@ -26,19 +26,22 @@ define([
             this.proposals.on("reset", _.bind(this.resetProposals, this));
             this.costs.on("reset", _.bind(this.resetCosts, this));
 
-            this.positions.on("change:position", _.bind(this.update, this));
+            this.positions.on("change", _.bind(this.update, this));
             this.costs.on("change", _.bind(this.update, this));
             this.proposals.on("change", _.bind(this.update, this));
         },
         render: function() {
-            this.$(".employeePosition").html(this.positions.getPosition().get("title"));
+            var employeePosition = this.positions.getPosition().get("title").replace("_", " ");
+            this.$(".employeePosition").html(employeePosition);
             this.chart.data(this.processData());
             this.chart(this.$("#chart")[0]);
             this.chart.legend(this.$("#legend")[0]);
 
+            this.trigger("rendered");
         },
         update: function(duration) {
-            this.$(".employeePosition").html(this.positions.getPosition().get("title"));
+            var employeePosition = this.positions.getPosition().get("title").replace("_", " ");
+            this.$(".employeePosition").html(employeePosition);
             this.chart.data(this.processData());
             this.chart.update(duration);
         },

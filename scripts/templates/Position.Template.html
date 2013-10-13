@@ -1,2 +1,2 @@
-<span class="positionTitle"><%= title %> (<%= raw.length %>)</span>
+<span class="positionTitle"><%= title.replace("_", " ") %> (<%= raw.length %>)</span>
 <span class="positionBase money">$<%= d3.format(",f")(base) %></span>

@@ -8,7 +8,8 @@ define([
     "app/views/Positions.View",
     "app/views/Costs.View",
     "app/views/Proposals.View",
-    "app/views/Chart.View"
+    "app/views/Chart.View",
+    "app/routers/App.Router"
 ], function(
     $,
     _,
@@ -19,7 +20,8 @@ define([
     PositionsView,
     CostsView,
     ProposalsView,
-    ChartView
+    ChartView,
+    AppRouter
 ) {
     return Backbone.View.extend({
         initialize: function() {
@@ -32,6 +34,12 @@ define([
                 proposals: this.proposalsView.collection,
                 costs: this.costsView.collection
             });
+
+            this.router = new AppRouter({
+                chart: this.chartView
+            })
+
+            Backbone.history.start();
         },
         render: function() {
             this.positionsView.render();

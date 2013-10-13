@@ -42,4 +42,6 @@ require([
     app.editable = false;
     var appView = new AppView();
     appView.render();
+
+    window.appView = appView;
 });

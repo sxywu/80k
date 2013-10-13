@@ -15,6 +15,7 @@ define([
             this.collection = this.options.collection;
 
             this.collection.on("reset", _.bind(this.renderOne, this));
+            this.collection.on("change", _.bind(this.renderOne, this));
         },
         render: function() {
             this.collection.fetch();
@@ -41,7 +42,7 @@ define([
                 this.$("#citySelect").val(this.collection.defaultCost.city);
             }
             this.collection.setShowingType(val);
-            this.renderOne();
+            // this.renderOne();
             if (val === "Custom") {
                 this.$("#citySelect").val("Custom");
                 this.showEditable();
@@ -53,7 +54,7 @@ define([
                 this.$("#householdSelect").val(this.collection.defaultCost.TYPE);
             }
             this.collection.setShowingCity(val);
-            this.renderOne();
+            // this.renderOne();
             if (val === "Custom") {
                 this.$("#householdSelect").val("Custom");
                 this.showEditable();

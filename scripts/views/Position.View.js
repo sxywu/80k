@@ -18,6 +18,7 @@ define([
         },
         render: function() {
             this.$el.html(_.template(Template, this.model.attributes));
+            this.$el.attr("name", this.model.get("title"));
 
             return this;
         },
