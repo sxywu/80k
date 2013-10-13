@@ -22,19 +22,17 @@
 <body>
     <div id="container">
 
-        <div id="header">
-            <h2>"The average BART employee makes 80k a year"</h2>
-            
-            <p>
-                We have heard this phrase often since the first BART strike happened in July, and it has caused a lot of public resentment.  But it does not tell us why unionized BART workers are striking, nor is it even an accurate representation of the average unionized worker's salaries.  Here, we try to figure out how much a unionized BART worker makes, the cost of living that they are trying to maintain, and how the negotiations will impact them.
-            </p>
+        <div id="chartContainer">
+            <h2>Annual income and cost of living for a <span class="employeePosition"></span></h2>
+            <p>(click on right to change employee position)</p>
+                
+            <svg id="chart">
 
-            <p><strong>Directions:</strong></p>
-            <ol>
-                <li>Play around with the dropdowns, and see how they affect a BART employee's annual income and cost of living (bottom chart).</li>
-                <li>Hover and click and explore the data.</li>
-                <li>From the dropdowns, select "Custom" to edit the data and see how they affect the bottom chart.</li>
-            </ol>
+            </svg>
+            <div id="positionsContainer">
+            </div>
+            <svg id="legend">
+            </svg>
         </div>
 
         <div class="row">
@@ -78,22 +76,7 @@
             </div>
         </div>
 
-        <div id="chartContainer">
-            <h4>Annual income and cost of living for a <span class="employeePosition"></span></h4>
-            <p>(click on right to change employee position)</p>
-            <svg id="chart">
 
-            </svg>
-            <div id="positionsContainer">
-
-
-            </div>
-            <svg id="legend">
-
-            </svg>
-
-
-        </div>
 
         <div id="footer">
             <h4>motivations</h4>

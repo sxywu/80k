@@ -106,7 +106,6 @@ define([
         lineChart.update = function(duration) {
             duration = (duration !== undefined ? duration : 750)
             if (_.flatten(data).length > 0) {
-                console.log(data);
                 lines.data(data).transition().duration(duration).attr("d", line);
                 chart.selectAll("g.line").selectAll("path.line")
                     .data(data).enter().append("path")

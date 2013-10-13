@@ -4,7 +4,7 @@ body {
 }
 
 * {
-    font-family: Times New Roman;
+    font-family: Garamond;
     font-size: 1em;
     
 }
@@ -62,7 +62,7 @@ body {
 
 #chart {
     width: 600px;
-    height: 400px;
+    height: 350px;
     float: left;
 }
 
@@ -159,17 +159,20 @@ input.costEdit[type="text"] {
     color: #2667B7;*/
 }
 
+
+
+/* chart */
+#chartContainer h2, #chartContainer p {
+  text-align: center;
+  margin-bottom: 5px;
+    font-family: Helvetica;
+}
+
 .employeePosition {
+
     font-family: Helvetica;
     border-bottom: 2px solid #2667B7;
 }
-
-/* chart */
-#chartContainer h4, #chartContainer p {
-  text-align: center;
-  margin-bottom: 5px;
-}
-
 
 /* footer */
 #footer {
