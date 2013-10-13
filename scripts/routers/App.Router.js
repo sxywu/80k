@@ -57,6 +57,7 @@ define([
 				i += 1;
 			});
 
+			$(".URLtoShare").val("http://sxywu.github.io/80k/#" + kind + str);
 			this.navigate(kind + str, {replace: true});
 		},
 		routes: {

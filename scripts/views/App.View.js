@@ -2,6 +2,7 @@ define([
     "jquery",
     "underscore",
     "backbone",
+    "bootstrap",
     "app/collections/Positions.Collection",
     "app/collections/Costs.Collection",
     "app/collections/Proposals.Collection",
@@ -14,6 +15,7 @@ define([
     $,
     _,
     Backbone,
+    bootstrap,
     PositionsCollection,
     CostsCollection,
     ProposalsCollection,
@@ -24,6 +26,7 @@ define([
     AppRouter
 ) {
     return Backbone.View.extend({
+        el: "body",
         initialize: function() {
             this.positionsView = new PositionsView({collection: new PositionsCollection()});
             this.costsView = new CostsView({collection: new CostsCollection()});
@@ -45,6 +48,18 @@ define([
             this.positionsView.render();
             this.proposalsView.render();
             this.costsView.render();
+        },
+        events: {
+            "click .shareURL": "shareURL",
+            "blur .popover": "hidePopover"
+        },
+        shareURL: function(e) {
+            $(".shareURL").popover("show");
+            $(".URLtoShare").val(document.URL.toString());
+            $(".URLtoShare").select();
+        },
+        hidePopover: function() {
+            $(".shareURL").popover("hide");
         }
     });
 });

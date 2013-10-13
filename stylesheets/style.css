@@ -33,6 +33,23 @@ body {
   right: 0;
   width: 100%;
 }
+
+.popover {
+  width: 250px;
+}
+
+.popover-content {
+  font-family: Helvetica;
+}
+
+.btn.shareURL {
+  font-family: Helvetica;
+height: 10px;
+line-height: 10px;
+font-size: 12px;
+margin-top: -13px;
+}
+
 input.shareURL[type="text"] {
   font-family: Helvetica;
 }
@@ -63,6 +80,7 @@ input.shareURL[type="text"] {
 #costsContainer, #proposalsContainer {
     width: 425px;
     float: left;
+    margin-bottom: 50px;
 }
 
 #positionsContainer {
