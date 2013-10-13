@@ -39,7 +39,6 @@ define([
 				if (val === "Custom") {
 					if (kind !== "default/") {
 						kind = "custom/all/";
-						// str += that.chart.costs.getCustomURL();
 						str += that.chart.proposals.getCustomURL();
 					} else if (key === "city") {
 						kind = "custom/costs/";
