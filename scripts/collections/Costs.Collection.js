@@ -19,7 +19,17 @@ define([
         city: "San Francisco",
         TYPE: "2P2C"
     },
-    showingCost = _.clone(defaultCost);
+    showingCost = _.clone(defaultCost),
+    expenses = {
+        "H": "Housing",
+        "F": "Food",
+        "C": "Child care",
+        "T": "Transportation",
+        "HC": "Health care",
+        "O": "Other Necessities",
+        "TX": "Taxes"
+    },
+    invertedExpenses = _.invert(expenses);
     return Backbone.Collection.extend({
         model: CostModel,
         initialize: function() {
@@ -105,6 +115,36 @@ define([
                     that.trigger("change");
                 });
             });
+        },
+        setCustomURL: function(custom) {
+            var model = this.getCost(),
+                attrs = {};
+            _.each(custom.split(","), function(attr) {
+                    var kv = attr.split("_"),
+                        key = expenses[kv[0]],
+                        val = kv[1];
+                    attrs[key] = val;
+            });
+            model.set(attrs);
+            this.trigger("change");
+        },
+        getCustomURL: function() {
+            var data = this.getCost().getExpenses()
+                length = _.keys(data).length,
+                i = 0,
+                str = "";
+
+            _.each(data, function(val, key) {
+                str += invertedExpenses[key] + "_";
+                str += val;
+
+                if (i < length - 1) {
+                    str += ",";
+                }
+                i += 1;
+            });
+
+            return str;
         }
     });
 });

@@ -11,7 +11,8 @@ define([
 		"SF": "San Francisco",
 		"OF": "Oakland, Fremont",
 		"SSS": "San Jose, Sunnyvale, Santa Clara",
-		"VF": "Vallejo/Fairfield"
+		"VF": "Vallejo/Fairfield",
+		"Custom": "Custom"
 	},
 	invertedCities = _.invert(cities);
 	return Backbone.Router.extend({
@@ -37,10 +38,12 @@ define([
 			_.each(kv, function(val, key) {
 				if (val === "Custom") {
 					if (kind) {
-						kind = "custom/all/";
+						console.log("all");
+						str += that.chart.costs.getCustomURL();
+						str += that.chart.proposals.getCustomURL();
 					} else if (key === "city") {
 						kind = "custom/costs/";
-
+						str += that.chart.costs.getCustomURL();
 					} else if (key === "month") {
 						kind = "custom/proposals/"
 						str += that.chart.proposals.getCustomURL();
@@ -49,18 +52,18 @@ define([
 					str += val;	
 				}
 				if (i < length - 1) {
-					str += "/";
+					str += (key === "type" && val === "Custom" ? "" : "/");
 				}
 
 				i += 1;
 			});
 
-			console.log(kind + str);
 			this.navigate(kind + str, {replace: true});
 		},
 		routes: {
 			":type/:city/:month/:position": "defaultRoute",
-			"custom/proposals/:type/:city/:proposal/:position": "customProposal"
+			"custom/proposals/:type/:city/:proposal/:position": "customProposal",
+			"custom/costs/:costs/:month/:position": "customCosts"
 		},
 		defaultRoute: function(type, city, month, position) {
 			var that = this;
@@ -87,6 +90,19 @@ define([
 				that.chart.proposals.setMonth("Custom", {silent: true});
 				that.chart.proposals.setCustomURL(proposal);
 
+			});
+		},
+		customCosts: function(costs, month, position) {
+			var that = this;
+			this.chart.on("rendered", function() {
+				$("#householdSelect").val("Custom");
+				$("#citySelect").val("Custom");
+				$("#monthSelect").val(month);
+				that.chart.positions.setPosition(position);
+				that.chart.proposals.setMonth(month);
+
+				that.chart.costs.setShowingCity("Custom", {silent: true});
+				that.chart.costs.setCustomURL(costs);
 			});
 		}
 	});

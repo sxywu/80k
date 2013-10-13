@@ -44,7 +44,7 @@ define([
                 chart(that.$("." + key + "Chart")[0]);
 
                 that.charts[key] = chart;
-            });   
+            });
         },
         update: function(duration) {
             var model = this.collection.getProposal(),

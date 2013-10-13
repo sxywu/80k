@@ -16,6 +16,7 @@ define([
 
             this.collection.on("reset", _.bind(this.renderOne, this));
             this.collection.on("change", _.bind(this.renderOne, this));
+            // this.collection.on("manualCustom", _.bind(this.showEditable, this));
         },
         render: function() {
             this.collection.fetch();
@@ -29,6 +30,9 @@ define([
                 monthly: model.monthlyTotal(),
                 annual: model.total()
             }));
+            if (model.get("TYPE") === "Custom") {
+                this.showEditable();
+            }
         },
         events: {
             "change #householdSelect": "setType",
@@ -61,7 +65,7 @@ define([
             }
         },
         showEditable: function() {
-            
+            console.log("editing");
             $(".costEdit").show();
             $(".costAmount").hide();
         },

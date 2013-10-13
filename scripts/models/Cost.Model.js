@@ -23,10 +23,11 @@ define([
     return Backbone.Model.extend({
         getExpenses: function() {
             var irrelevant = ["Annual Total", "Monthly Total", "TYPE", "City"],
-                json = {};
+                json = {},
+                that = this;
             _.each(this.attributes, function(val, key) {
                 if (!_.contains(irrelevant, key)) {
-                    json[key] = val;
+                    json[key] = that.toInt(val);
                 }
             });
 
@@ -45,7 +46,7 @@ define([
             return this.monthlyTotal() * 12;
         },
         toInt: function(str) {
-            return parseInt(str.replace("$", "").replace(",", ""));
+            return (_.isString(str) ? parseInt(str.replace("$", "").replace(",", "")) : str);
         }
 
     });

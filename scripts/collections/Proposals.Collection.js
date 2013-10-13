@@ -63,7 +63,6 @@ define([
             });
         },
         setCustomURL: function(custom) {
-            // http://localhost:8888/80k/#custom/proposals/1P1C/VF/System_Service Worker/BR-9a10a8a5,UR-5.2a6a7
             var model = this.getProposal(),
                 attrs = {};
             _.each(custom.split(","), function(attr) {
