@@ -32,14 +32,15 @@ define([
 				length = _.keys(kv).length,
 				str = "",
 				i = 0,
-				kind = "",
+				kind = "default/",
 				that = this;
 
 			_.each(kv, function(val, key) {
 				if (val === "Custom") {
-					if (kind) {
+					if (kind !== "default/") {
 						console.log("all");
-						str += that.chart.costs.getCustomURL();
+						kind = "custom/all/";
+						// str += that.chart.costs.getCustomURL();
 						str += that.chart.proposals.getCustomURL();
 					} else if (key === "city") {
 						kind = "custom/costs/";
@@ -61,11 +62,12 @@ define([
 			this.navigate(kind + str, {replace: true});
 		},
 		routes: {
-			":type/:city/:month/:position": "defaultRoute",
+			"default/:type/:city/:month/:position": "routeDefault",
 			"custom/proposals/:type/:city/:proposal/:position": "customProposal",
-			"custom/costs/:costs/:month/:position": "customCosts"
+			"custom/costs/:costs/:month/:position": "customCosts",
+			"custom/all/:costs/:proposal/:position": "customAll"
 		},
-		defaultRoute: function(type, city, month, position) {
+		routeDefault: function(type, city, month, position) {
 			var that = this;
 			this.chart.on("rendered", function() {
 				$("#householdSelect").val(type);
@@ -101,6 +103,20 @@ define([
 				that.chart.positions.setPosition(position);
 				that.chart.proposals.setMonth(month);
 
+				that.chart.costs.setShowingCity("Custom", {silent: true});
+				that.chart.costs.setCustomURL(costs);
+			});
+		},
+		customAll: function(costs, proposal, position) {
+			var that = this;
+			this.chart.on("rendered", function() {
+				$("#householdSelect").val("Custom");
+				$("#citySelect").val("Custom");
+				$("#monthSelect").val("Custom");
+				that.chart.positions.setPosition(position);
+
+				that.chart.proposals.setMonth("Custom", {silent: true});
+				that.chart.proposals.setCustomURL(proposal);
 				that.chart.costs.setShowingCity("Custom", {silent: true});
 				that.chart.costs.setCustomURL(costs);
 			});
