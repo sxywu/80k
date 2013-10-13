@@ -152,6 +152,9 @@ define([
 
         /* events */
         drag = d3.behavior.drag()
+            .on("dragstart", function(d) {
+                app.dragging = true;
+            })
             .on("drag", function(d) {
                 if (app.editable) {
                     var x = d.year - 1,
@@ -170,7 +173,11 @@ define([
                     $(chart[0][0]).trigger("chart:update", [k, array]);
 
                 }
-            }).on("dragend", moveTip.hide);
+            }).on("dragend", function(d) {
+                app.dragging = false;
+                $(chart[0][0]).trigger("updateURL");
+                moveTip.hide(d);
+            });
 
         lineChart.editing = function() {
             tip.style("display", "none");

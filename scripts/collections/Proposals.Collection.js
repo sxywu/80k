@@ -73,8 +73,8 @@ define([
                     attrs[key] = val;
 
             });
-
             model.set(attrs);
+            this.trigger("manualCustom");
             this.trigger("change");
         },
         getCustomURL: function() {

@@ -21,6 +21,7 @@ define([
 
             this.collection.on("reset", _.bind(this.renderOne, this));
             this.collection.on("change", _.bind(this.update, this));
+            this.collection.on("manualCustom", _.bind(this.manualCustom, this));
         },
         render: function() {
             this.collection.fetch();
@@ -59,11 +60,11 @@ define([
         dragUpdate: function(e, key, array) {
             var model = this.collection.getProposal();
             model.set(key, array);
-            this.update(0);
         },
         events: {
             "change #monthSelect": "setMonth",
-            "chart:update svg": "dragUpdate"
+            "chart:update svg": "dragUpdate",
+            "updateURL svg": "updateURL"
         },
         setMonth: function(e) {
             var val = $(e.target).val();
@@ -77,6 +78,21 @@ define([
                 }
             });
             this.collection.setMonth(val);
+        },
+        /* this function is for when in custom mode, and when dragging has
+        ended, the URL can update with the new number */
+        updateURL: function() {
+            this.collection.trigger("change");
+        },
+        manualCustom: function() {
+            app.editable = true;
+            _.each(this.charts, function(val, key) {
+                if (app.editable) {
+                    val.editing();
+                } else {
+                    val.notEditing();
+                }
+            });
         }
     });
 });

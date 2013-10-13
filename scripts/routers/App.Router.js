@@ -22,6 +22,7 @@ define([
 			this.chart.positions.on("change", _.bind(this.update, this));
 		},
 		update: function() {
+			if (app.dragging) return;
 			var type = this.chart.costs.getShowingType(),
 				city = invertedCities[this.chart.costs.getShowingCity()],
 				month = this.chart.proposals.getMonth(),
