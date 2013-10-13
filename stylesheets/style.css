@@ -131,8 +131,12 @@ input.shareURL[type="text"] {
   width: 100px;
 }
 /* costs */
-h4 {
+h4, h5 {
   font-family: Helvetica;
+}
+
+#footer h4 {
+  padding-top: 30px;
 }
 
 h4.costLabel, h4.proposalLabel {
@@ -220,7 +224,7 @@ input.costEdit[type="text"] {
   width: 900px;
   text-align: center;
   border-top: 1px dashed #666;
-  padding-top: 50px;
+  padding-top: 30px;
   padding-bottom: 100px;
 }
 
@@ -241,13 +245,21 @@ input.costEdit[type="text"] {
   margin: 10px;
 }
 .name a {
-
+  font-family: Helvetica;
   color: #666;
   text-decoration: underline;
 }
 .socialImg {
   width: 25px;
   border-radius: 3px;
+}
+
+/*footnotes*/
+.footnote {
+  /*width: 600px;*/
+  text-align: left;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /* svg */

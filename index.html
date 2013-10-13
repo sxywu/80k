@@ -32,10 +32,10 @@
 
         <div id="shareLinks">
 
-            <span class="shareURL btn" rel="popover" data-html=true data-placement="bottom" 
+            <span class="shareURL btn btn-info" rel="popover" data-html=true data-placement="bottom" 
    data-content='
         To share, copy this link.
-        <input type="text" class="URLtoShare .input-large" />'>share this proposal</span>
+        <input type="text" class="URLtoShare .input-large" />'>share custom proposal</span>
             <div class="fb-like" data-href="http://sxywu.github.io/80k" data-width="100" data-height="25" data-colorscheme="light" data-layout="button_count" data-action="recommend" data-show-faces="false" data-send="false"></div>
             <script src="//platform.linkedin.com/in.js" type="text/javascript">
              lang: en_US
@@ -113,8 +113,60 @@
                 And thus I have attempted to gather here the Bay Area costs of living, past and present BART and union negotiations, and union employee salaries, in the hopes of better understanding the situation.
             </p>
             <h4>footnotes</h4>
+                <h5>Employee salaries</h5>
+                <div class="footnote"><p>
+                    The employee positions listed on this page are of those most commonly affiliated with Service Employees International Union (SEIU) and Amalgamated Transit Union (ATU), the two unions in negotiations with BART.  The only exception is Management, who are all non-SEIU and non-ATU.  To obtain the figures, I filtered employees by their union association, and discarded any positions with less than 50 employees.  The resulting positions are listed with their employee count in paranthesis, and the average base salary in bold.  
+                </p>
+                <p>
+                    I have also grouped employee income (both present and future), by the following categories:
+                    <ul>
+                        <li>base: base salary for calendar year</li>
+                        <li>other: lump sump payouts for vacation, sick leave and comp time, bonuses and other taxable cash payments</li>
+                        <li>pension: employer contribution to pension, plus employee contribution to pension paid by the employer</li>
+                        <li>medical: employer contributions to medical, dental and vision plans</li>
+                    </ul>
+                    Source: <a href="http://github.com/enjalot/bart/blob/master/data/bart-comp-all.csv" target="_new">http://github.com/enjalot/bart/blob/master/data/bart-comp-all.csv</a>
+                </p></div>
+
+                <h5>Cost of living</h5>
+                <div class="footnote"><p>
+                    The cost of living data were gathered from Economic Policy Institute's Family Budget Calculator, which assumes a secure but modest standard of living for their families.  Furthermore, EPI assumes the head of a single-parent family to be employed, and both of the parents of a two-parent family to be employed.  This causes a slight discrepancy in the bar graph, as the cost of living figures assume all parents to be working, but the income assumes only one working parent.  Another point to note is that the Budget Calculator takes into account cost of insurance premiums and out-of-pocket costs, while BART employees pay a flat rate of $92 a month towards medical insurance which is not reflected in the calculations for the bar graph.
+                    <p>
+                    For these reasons, the individual costs are editable, so that a user may input and explore whatever costs they feel reasonable.
+                    <p>
+                    Sources:<br>
+                    <a href="http://www.epi.org/resources/budget/" target="_new">http://www.epi.org/resources/budget/</a><br>
+                    <a href="http://www.epi.org/publication/wp297-2013-family-budget-calculator-technical-documentation/" target="_new">http://www.epi.org/publication/wp297-2013-family-budget-calculator-technical-documentation/</a>
+                </p></div>
+                <h5>Inflation</h5>
+                <div class="footnote"><p>
+                    I assumed an inflation rate of 2% over each year by eyeballing the US Inflation Calculator.
+                    <p>
+                    Source:<a href="http://www.usinflationcalculator.com/inflation/current-inflation-rates/" target="_new">http://www.usinflationcalculator.com/inflation/current-inflation-rates/</a><br>
+                </p></div>
+                <h5>Proposals</h5>
+                <div class="footnote"><p>
+                    The proposal information were perhaps the most difficult to gather; no one source (or even multiple sources) gave a straight forward run-down of proposals from either sides, and for that reason this section has the most uncertainty.
+                    <ul>
+                        <li>Raises: the August union proposal numbersare extrapolated from the statement, "5% plus cost-of-living hike, for an increase of up to 7.2%".  I have also taken liberties to assume that the raises are compounded year over year.</li>
+                        <li>Pensions: I was not able to find a clear pension proposal for October time.  For the August figures I was able to find, I have assumed that pension contributions mean the percentage of base pay BART will contribute.  I am unclear as to what percentage the employee is expected to contribute.</li>
+                        <li>Medical: Currently employees pay a flat $92 a month, but BART proposals ask for an increased contribution to the cost of premiums.  Currently none of these costs are reflected in the bar graph.
+                        </li>
+                    </ul> 
+                    <p>
+                    Sources:<br>
+                    <a href="http://www.bart.gov/news/articles/2013/news20130730.aspx" target="_new">http://www.bart.gov/news/articles/2013/news20130730.aspx</a><br>
+                    <a href="http://www.sfexaminer.com/sanfrancisco/bart-and-its-unions-cant-even-agree-on-math/Content?oid=2539329" target="_new">http://www.sfexaminer.com/sanfrancisco/bart-and-its-unions-cant-even-agree-on-math/Content?oid=2539329</a>
+                    <a href="http://sanfrancisco.cbslocal.com/2013/10/02/bart-unions-lower-demands-as-cooling-off-period-nears-end/" target="_new">http://sanfrancisco.cbslocal.com/2013/10/02/bart-unions-lower-demands-as-cooling-off-period-nears-end/</a>
+                </p></div>
+
+            <h4>credit where it's due</h4>
             <p>
-                Footnotes and source links will appear here shortly.
+                None of this would have been possible if not for the amazing <a href="http://www.meetup.com/Bay-Area-d3-User-Group/" target="_new">Bay Area d3 User Group</a>, and in particular <a href="https://twitter.com/enjalot" target="_new">Ian Johnson</a> and <a href="https://twitter.com/LewisLehe" target="_new">Lewis Lehe</a> who organized the Hack the BART Strike project that this is a part of.  The visualizations that have been birthed from this project can be found <a href="http://enjalot.github.io/bart/" target="_new">here</a>, and gives a very good holistic view of the BART strike situation.  There is also a <a href="https://github.com/enjalot/bart" target="_new">rich repository</a> of data and information contributed by various members of the user group for anyone interested in creating their own visualizations.
+            </p>
+            <h4>finally, a disclaimer</h4>
+            <p>
+                The BART strike is a very complicated issue with many moving parts and emotions, and this simple infographic has only covered a tiny bit of the issues at hand.  It does not attempt to shed light on the whole picture.  Instead, it was created as a tool for exploration, in the hopes that it will give the public a chance to form their own opinions.  As such, the accuracy of the assumptions I have made are very important, and because I am in no way an expert, I would love (really desperately need, actually) feedback of any kind.   
             </p>
             <div id="contact">
                 <div ><img class="fbImg" src="images/face.jpg" /></div>
