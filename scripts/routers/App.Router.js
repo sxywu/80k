@@ -38,7 +38,6 @@ define([
 			_.each(kv, function(val, key) {
 				if (val === "Custom") {
 					if (kind !== "default/") {
-						console.log("all");
 						kind = "custom/all/";
 						// str += that.chart.costs.getCustomURL();
 						str += that.chart.proposals.getCustomURL();

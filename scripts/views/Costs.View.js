@@ -65,7 +65,6 @@ define([
             }
         },
         showEditable: function() {
-            console.log("editing");
             $(".costEdit").show();
             $(".costAmount").hide();
         },

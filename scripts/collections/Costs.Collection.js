@@ -111,7 +111,6 @@ define([
 
             this.each(function(model) {
                 model.on("change", function() {
-                    console.log("trigger");
                     that.trigger("change");
                 });
             });
