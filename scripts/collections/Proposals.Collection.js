@@ -33,6 +33,7 @@ define([
                     }).clone().value();
 
                 custom.month = "Custom";
+                custom["Medical,Union"] = "[2, 2, 2]";
                 data.push(custom);
                 that.reset(data);
             });

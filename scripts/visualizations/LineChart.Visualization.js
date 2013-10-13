@@ -106,6 +106,7 @@ define([
         lineChart.update = function(duration) {
             duration = (duration !== undefined ? duration : 750)
             if (_.flatten(data).length > 0) {
+                console.log(data);
                 lines.data(data).transition().duration(duration).attr("d", line);
                 chart.selectAll("g.line").selectAll("path.line")
                     .data(data).enter().append("path")
@@ -113,6 +114,8 @@ define([
                     .attr("d", line)
                     .attr("fill", "none")
                     .attr("stroke", function(d) {return app.colors[_.chain(d).pluck("party").uniq().value()]; });
+                chart.selectAll("g.line").selectAll("path.line")
+                    .data(data).exit().remove();
                 lines = chart.selectAll("path.line");
 
                 circles.data(_.flatten(data)).transition().duration(duration)
@@ -125,6 +128,8 @@ define([
                     .attr("cy", function(d) {return y(d.rate)})
                     .attr("r", 3)
                     .attr("fill", function(d) {return app.colors[d.party]});
+                chart.selectAll("g.circles").selectAll("circle.dot")
+                    .data(_.flatten(data)).exit().remove();
                 circles = chart.selectAll("circle.dot");
 
                 hoverCircles.data(_.flatten(data)).transition().duration(duration)
@@ -136,6 +141,8 @@ define([
                     .attr("cx", function(d, i) {return x(d.year)})
                     .attr("cy", function(d) {return y(d.rate)})
                     .attr("r", 10);
+                chart.selectAll("g.hoverCircles").selectAll("circle.dotHover")
+                    .data(_.flatten(data)).exit().remove();
                 hoverCircles = chart.selectAll("circle.dotHover")
                     .call(tip)
                     .call(moveTip)
@@ -198,7 +205,9 @@ define([
 
         lineChart.data = function(value) {
             if (!arguments.length) return data;
-            data = value;
+            data = _.filter(value, function(array) {
+                return array.length > 0;
+            });
             return lineChart;
         }
 
