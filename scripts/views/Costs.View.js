@@ -58,7 +58,6 @@ define([
                 this.$("#householdSelect").val(this.collection.defaultCost.TYPE);
             }
             this.collection.setShowingCity(val);
-            // this.renderOne();
             if (val === "Custom") {
                 this.$("#householdSelect").val("Custom");
                 this.showEditable();

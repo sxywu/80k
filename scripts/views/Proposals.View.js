@@ -21,7 +21,6 @@ define([
 
             this.collection.on("reset", _.bind(this.renderOne, this));
             this.collection.on("change", _.bind(this.update, this));
-            this.collection.on("manualCustom", _.bind(this.manualCustom, this));
         },
         render: function() {
             this.collection.fetch();
@@ -56,6 +55,10 @@ define([
                 chart.data(category);
                 chart.update(duration);
             });   
+
+            if (model.get("month") === "Custom") {
+                this.manualCustom();
+            }
         },
         dragUpdate: function(e, key, array) {
             var model = this.collection.getProposal();
