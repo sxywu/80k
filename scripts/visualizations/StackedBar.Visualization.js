@@ -21,7 +21,9 @@ define([
             barPadding = .5,
             hoverHeight = 7,
             padding = {top: 25, left: 75},
-            groups, bars, rects, dots, lines, hover, x, y, barLegend, rectTip, svg, legendSVG;
+            groups, bars, rects, dots, lines, hover, x, y, 
+            barLegend, rectTip, hoverTip, svg, legendSVG,
+            hoverLine, hoverLineTip;
 
         
 
@@ -42,10 +44,15 @@ define([
                 .html(function(d, i) {
                     return _.template(RectangleHoverTemplate, d); 
                 });
-            var hoverTip = d3.tip().attr('class', 'd3-tip')
+            hoverTip = d3.tip().attr('class', 'd3-tip')
                 .direction("e").offset([0, barWidth / 2])
                 .html(function(d, i) {
                     return "cost of living<br> <div class='proposalAmount'>$" + d3.format(",f")(d.cost) + "</div>"; 
+                });
+            hoverLineTip = d3.tip().attr('class', 'd3-tip')
+                .direction("w").offset([0, - barWidth / 2])
+                .html(function(d) {
+                    return "$" + d3.format(",f")(d.ending);
                 });
 
             svg = d3.select(selection);
@@ -70,8 +77,8 @@ define([
                 .attr("fill", function(d) {return app.colors[d.party]})
                 .attr("stroke", "none")
                 .call(rectTip)
-                .on("mouseover", rectTip.show)
-                .on("mouseleave", rectTip.hide);
+                .on("mouseover", mouseover)
+                .on("mouseleave", mouseleave);
 
             dots = groups.append("circle")
                 .classed("dot", true)
@@ -82,7 +89,7 @@ define([
                     var BARTbase = (app.secondIncome ? d.bars[0][1].height + app.medianIncome : d.bars[0][0].height),
                         UnionBase = (app.secondIncome ? d.bars[1][1].height + app.medianIncome : d.bars[1][0].height);
                     if (d.cost > BARTbase
-                        && d.cost > UnionBase) {
+                        || d.cost > UnionBase) {
                         return app.colors.red;
                     }
                     return app.colors.green;
@@ -98,7 +105,7 @@ define([
                     var BARTbase = (app.secondIncome ? d.bars[0][1].height + app.medianIncome : d.bars[0][0].height),
                         UnionBase = (app.secondIncome ? d.bars[1][1].height + app.medianIncome : d.bars[1][0].height);
                     if (d.cost > BARTbase
-                        && d.cost > UnionBase) {
+                        || d.cost > UnionBase) {
                         return app.colors.red;
                     }
                     return app.colors.green;
@@ -231,8 +238,8 @@ define([
                 .exit().remove();
             rects = bars.selectAll("rect")
                 .call(rectTip)
-                .on("mouseover", rectTip.show)
-                .on("mouseleave", rectTip.hide);
+                .on("mouseover", mouseover)
+                .on("mouseleave", mouseleave);
 
             barLegend.data(function(d) {return data[0].bars;});
             barLegend.selectAll("rect").data(function(d) {return d;})
@@ -269,7 +276,7 @@ define([
                         var BARTbase = (app.secondIncome ? d.bars[0][1].height + app.medianIncome : d.bars[0][0].height),
                             UnionBase = (app.secondIncome ? d.bars[1][1].height + app.medianIncome : d.bars[1][0].height);
                         if (d.cost > BARTbase
-                            && d.cost > UnionBase) {
+                            || d.cost > UnionBase) {
                             return app.colors.red;
                         }
                         return app.colors.green;
@@ -284,7 +291,7 @@ define([
                         var BARTbase = (app.secondIncome ? (d.bars[0][1].height + app.medianIncome) : d.bars[0][0].height),
                             UnionBase = (app.secondIncome ? (d.bars[1][1].height + app.medianIncome) : d.bars[1][0].height);
                         if (d.cost > BARTbase
-                            && d.cost > UnionBase) {
+                            || d.cost > UnionBase) {
                             return app.colors.red;
                         }
                         return app.colors.green;
@@ -303,6 +310,40 @@ define([
             barLegend.selectAll("rect").attr("opacity", 0.1);
             barLegend.selectAll("." + d.title + "Bar").attr("opacity", 1);
             bars.selectAll("." + d.title + "Bar").attr("opacity", 1);
+        }
+
+        function mouseover(d) {
+            rectTip.show(d);
+            if (hoverLine) {
+                hoverLine.transition().duration(250)
+                    .attr("y1", height - y(d.ending))
+                    .attr("y2", height - y(d.ending))
+                    .each("end", function() {
+                        app.hoverLineTarget = this;
+                        hoverLineTip.show(d);
+                        app.hoverLineTarget = false;
+                    });
+                
+            } else {
+                hoverLine = svg.append("line").classed("hoverLine", true)
+                    .attr("x1", padding.left)
+                    .attr("x2", width + 2 * barWidth + barPadding)
+                    .attr("y1", height - y(d.ending))
+                    .attr("y2", height - y(d.ending))
+                    .attr("fill", "none")
+                    .attr("stroke", "#666")
+                    .attr("stroke-width", 1)
+                    .attr("stroke-dasharray", "5,5")
+                    .call(hoverLineTip);
+
+                app.hoverLineTarget = hoverLine[0][0];
+                hoverLineTip.show(d);
+                app.hoverLineTarget = false;
+            }
+        }
+
+        function mouseleave(d) {
+            rectTip.hide(d);
         }
 
         /* getter/setters */

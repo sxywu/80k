@@ -238,7 +238,8 @@ d3.tip = function() {
   //
   // Returns an Object {n, s, e, w, nw, sw, ne, se}
   function getScreenBBox() {
-    var target     = d3.event.target,
+    console.log(app.hoverLineTarget)
+    var target     = (app.hoverLineTarget ? app.hoverLineTarget : d3.event.target),
         bbox       = {},
         matrix     = target.getScreenCTM(),
         tbbox      = target.getBBox(),

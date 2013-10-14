@@ -328,6 +328,13 @@ input.secondIncomeToggle[type="checkbox"] {
   text-align: center;
 }
 
+.d3-tip.w:after {
+  content: "\25B6";
+  margin: -4px 0 0 -1px;
+  top: 50%;
+  left: 100%;
+}
+
 .proposalYear, .proposalRate, .proposalAmount {
     font-size: 1.1em;
     font-weight: 600;

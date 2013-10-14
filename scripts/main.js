@@ -47,6 +47,7 @@ require([
     app.dragging = false; // when dragging line chart
     app.secondIncome = true; 
     app.medianIncome = 36485.75; // median income for bay area
+    app.hoverLineTarget = false;
     var appView = new AppView();
     appView.render();
 });
