@@ -41,9 +41,12 @@ require([
     AppView
 ) {
     app = {};
-    app.colors = {BART: "#2667B7", Union: "#F48512", darkGreen: "#859900", green: "#BEF202", red: "#dc322f"};
+    app.colors = {BART: "#2667B7", Union: "#F48512", other: "#cfcfcf",
+        darkGreen: "#859900", green: "#BEF202", red: "#dc322f"};
     app.editable = false; // when editing line chart
-    app.dragging = false; // when dragging line chart 
+    app.dragging = false; // when dragging line chart
+    app.secondIncome = true; 
+    app.medianIncome = 36485.75; // median income for bay area
     var appView = new AppView();
     appView.render();
 

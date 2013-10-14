@@ -13,7 +13,8 @@ define([
 ) {
     var gotPositions = false,
         gotProposals = false,
-        gotCosts = false;
+        gotCosts = false,
+        inflation = 1.02; // assumption right now
     return Backbone.View.extend({
         el: "#chartContainer",
         initialize: function() {
@@ -77,9 +78,8 @@ define([
                 lastBART = _.clone(position.attributes),
                 lastUnion = _.clone(position.attributes),
                 costTotal = cost.total(),
-                inflation = 1.02, // assumption right now
                 data = [{
-                    bars: [this.processPositionData(lastBART, "BART"), this.processPositionData(lastUnion, "Union")],
+                    bars: [this.processPositionData(lastBART, "BART", 0), this.processPositionData(lastUnion, "Union", 0)],
                     cost: costTotal
                 }],
                 that = this;
@@ -90,7 +90,7 @@ define([
                 lastBART.pension = (pensions.BART && pensions.BART[i] ? (lastBART.base * pensions.BART[i].rate) : lastBART.pension);
                 lastUnion.base += (raises.Union[i] ? (lastUnion.base * raises.Union[i].rate) : 0);
                 lastUnion.pension = (pensions.Union && pensions.Union[i] ? (lastUnion.base * pensions.Union[i].rate) : lastUnion.pension);
-                obj.bars = [that.processPositionData(lastBART, "BART"), that.processPositionData(lastUnion, "Union")];
+                obj.bars = [that.processPositionData(lastBART, "BART", i), that.processPositionData(lastUnion, "Union", i)];
                 obj.cost = costTotal * Math.pow(inflation, i + 1);
 
                 data.push(obj);
@@ -105,11 +105,25 @@ define([
             - ending (int)
             - opacity
         */
-        processPositionData: function(attributes, party) {
+        processPositionData: function(attributes, party, i) {
             var order = ["base", "other", "pension", "medical"],
                 starting = 0,
                 opacity = .3 / (order.length - 1),
                 data = [];
+
+            if (app.secondIncome) {
+                data.push({
+                    starting: starting,
+                    ending: starting + app.medianIncome * Math.pow(inflation, i + 1),
+                    height: app.medianIncome * Math.pow(inflation, i + 1),
+                    opacity: .5,
+                    title: "spouse",
+                    party: "other"
+                });
+
+                starting = starting + app.medianIncome * Math.pow(inflation, i + 1) + 1;
+
+            }
 
             _.each(order, function(key, i) {
                 var obj = {};

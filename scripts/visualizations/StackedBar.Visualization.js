@@ -18,7 +18,7 @@ define([
             legendWidth = 250,
             barWidth = 13,
             height = 300,
-            barPadding = 0,
+            barPadding = .5,
             hoverHeight = 7,
             padding = {top: 25, left: 75},
             groups, bars, rects, dots, lines, hover, x, y, barLegend;
@@ -79,8 +79,10 @@ define([
                 .attr("cy", function(d) {return height - y(d.cost)})
                 .attr("r", 3)
                 .attr("fill", function(d) {
-                    if (d.cost > d.bars[0][0].ending
-                        && d.cost > d.bars[1][0].ending) {
+                    var BARTbase = (app.secondIncome ? d.bars[0][1].height + app.medianIncome : d.bars[0][0].height),
+                        UnionBase = (app.secondIncome ? d.bars[1][1].height + app.medianIncome : d.bars[1][0].height);
+                    if (d.cost > BARTbase
+                        && d.cost > UnionBase) {
                         return app.colors.red;
                     }
                     return app.colors.green;
@@ -93,8 +95,10 @@ define([
                 .attr("y2", function(d) {return height - y(d.cost)})
                 .attr("fill", "none")
                 .attr("stroke", function(d) {
-                    if (d.cost > d.bars[0][0].ending
-                        && d.cost > d.bars[1][0].ending) {
+                    var BARTbase = (app.secondIncome ? d.bars[0][1].height + app.medianIncome : d.bars[0][0].height),
+                        UnionBase = (app.secondIncome ? d.bars[1][1].height + app.medianIncome : d.bars[1][0].height);
+                    if (d.cost > BARTbase
+                        && d.cost > UnionBase) {
                         return app.colors.red;
                     }
                     return app.colors.green;
@@ -167,7 +171,7 @@ define([
             barLegend = svg.selectAll("g.barLegend").data(data[0].bars)
                 .enter().append("g").classed("barLegend", true)
                 .attr("transform", function(d, i) {
-                    return "translate(0, " + (2 * padding.top + i * barWidth) + ")";
+                    return "translate(0, " + (2 * padding.top + i * barWidth + i * barPadding) + ")";
                 });
             barLegend.selectAll("rect").data(function(d) {return d})
                 .enter().append("rect").attr("class", function(d) {return d.title + "Bar"})
@@ -217,9 +221,11 @@ define([
                 d = data[i];
                 d3.select(this).datum(d).transition().duration(duration)
                     .attr("cy", function(d) {return height - y(d.cost)})
-                    .attr("fill", function(d) {
-                        if (d.cost > d.bars[0][0].ending
-                            && d.cost > d.bars[1][0].ending) {
+                    .attr("fill", function(d) {                    
+                        var BARTbase = (app.secondIncome ? d.bars[0][1].height + app.medianIncome : d.bars[0][0].height),
+                            UnionBase = (app.secondIncome ? d.bars[1][1].height + app.medianIncome : d.bars[1][0].height);
+                        if (d.cost > BARTbase
+                            && d.cost > UnionBase) {
                             return app.colors.red;
                         }
                         return app.colors.green;
@@ -231,8 +237,10 @@ define([
                     .attr("y1", function(d) {return height - y(d.cost)})
                     .attr("y2", function(d) {return height - y(d.cost)})
                     .attr("stroke", function(d) {
-                        if (d.cost > d.bars[0][0].ending
-                            && d.cost > d.bars[1][0].ending) {
+                        var BARTbase = (app.secondIncome ? (d.bars[0][1].height + app.medianIncome) : d.bars[0][0].height),
+                            UnionBase = (app.secondIncome ? (d.bars[1][1].height + app.medianIncome) : d.bars[1][0].height);
+                        if (d.cost > BARTbase
+                            && d.cost > UnionBase) {
                             return app.colors.red;
                         }
                         return app.colors.green;

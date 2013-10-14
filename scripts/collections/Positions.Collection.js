@@ -31,11 +31,11 @@ define([
                             var obj = {};
                             obj.title = "Management*";
                             obj.raw = val;
-                            obj.base = d3.mean(_.pluck(val, "Base"));
-                            obj.overtime = d3.mean(_.pluck(val, "OT"));
-                            obj.pension = (d3.mean(_.pluck(val, "EE")) + d3.mean(_.pluck(val, "ER"))) / 2;
-                            obj.medical = d3.mean(_.pluck(val, "MDV"));
-                            obj.other = d3.mean(_.pluck(val, "Other"));
+                            obj.base = d3.median(_.pluck(val, "Base"));
+                            obj.overtime = d3.median(_.pluck(val, "OT"));
+                            obj.pension = (d3.median(_.pluck(val, "EE")) + d3.median(_.pluck(val, "ER"))) / 2;
+                            obj.medical = d3.median(_.pluck(val, "MDV"));
+                            obj.other = d3.median(_.pluck(val, "Other"));
                             positions.push(obj);
                         }
                     });
