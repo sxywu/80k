@@ -4,7 +4,6 @@
     <title>Annual Income and Cost of Living for BART Employees</title>
     <meta property='og:image' content='images/screenshot.png'/>
     <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="stylesheets/bootstrap-glyphicons.css" type="text/css" />
     <link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
 
     <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
@@ -51,8 +50,8 @@
 
         <div id="chartContainer">
             <h2>Annual income and cost of living for a <span class="employeePosition"></span> depending on <span class="BARTcolor">BART</span> and <span class="UnionColor">Union</span> proposals</h2>
-            <p>click on right to explore other union employee positions<br>
-                <input class="secondIncomeToggle" type="checkbox" checked />include a second income earner
+            <p>click on right to explore other union employee positions</p>
+            <p class="secondIncome" style="display:none"><input class="secondIncomeToggle" type="checkbox" checked />include a second income earner
             </p>
                 
             <svg id="chart">
@@ -84,7 +83,11 @@
                         <option value="Vallejo/Fairfield">Vallejo to Fairfield area</option>
                         <option value="Custom">Custom</option>
                     </select>
+<!--                     <button type="button" class="editButton btn btn-info"><i class="icon-edit icon-white"></i></button> -->
+                    <!-- <div class="editButton">customize these costs</div> -->
                 </h4>
+                
+
                 <div id="costContainer">
 
                 </div>
@@ -102,6 +105,7 @@
                 <table id="proposalContainer">
 
                 </table>
+                <!-- <h5><span class="btn">customize these proposals</h5> -->
             </div>
         </div>
 

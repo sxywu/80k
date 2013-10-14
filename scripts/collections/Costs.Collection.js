@@ -91,6 +91,9 @@ define([
             if (type === "Custom") {
                 showingCost.city = "Custom";
             } else if (!options.silent) {
+                if (type.split("P")[0] === "1") {
+                    app.secondIncome = false;
+                }
                 this.trigger("change");
             }
         },

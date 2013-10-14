@@ -57,18 +57,22 @@ define([
 				i += 1;
 			});
 
+			console.log(str);
+			str += "/" + (app.secondIncome ? 1 : 0);
+
 			$(".URLtoShare").val("http://sxywu.github.io/80k/#" + kind + str);
 			this.navigate(kind + str, {replace: true});
 		},
 		routes: {
-			"default/:type/:city/:month/:position": "routeDefault",
-			"custom/proposals/:type/:city/:proposal/:position": "customProposal",
-			"custom/costs/:costs/:month/:position": "customCosts",
-			"custom/all/:costs/:proposal/:position": "customAll"
+			"default/:type/:city/:month/:position/:spouse": "routeDefault",
+			"custom/proposals/:type/:city/:proposal/:position/:spouse": "customProposal",
+			"custom/costs/:costs/:month/:position/:spouse": "customCosts",
+			"custom/all/:costs/:proposal/:position/:spouse": "customAll"
 		},
-		routeDefault: function(type, city, month, position) {
+		routeDefault: function(type, city, month, position, spouse) {
 			var that = this;
 			this.chart.on("rendered", function() {
+				app.secondIncome = (spouse === "0" ? false : true);
 				$("#householdSelect").val(type);
 				$("#citySelect").val(cities[city]);
 				$("#monthSelect").val(month);
@@ -78,9 +82,10 @@ define([
 				that.chart.positions.setPosition(position);
 			});
 		},
-		customProposal: function(type, city, proposal, position) {
+		customProposal: function(type, city, proposal, position, spouse) {
 			var that = this;
 			this.chart.on("rendered", function() {
+				app.secondIncome = (spouse === "0" ? false : true);
 				$("#householdSelect").val(type);
 				$("#citySelect").val(cities[city]);
 				$("#monthSelect").val("Custom");
@@ -93,9 +98,10 @@ define([
 
 			});
 		},
-		customCosts: function(costs, month, position) {
+		customCosts: function(costs, month, position, spouse) {
 			var that = this;
 			this.chart.on("rendered", function() {
+				app.secondIncome = (spouse === "0" ? false : true);
 				$("#householdSelect").val("Custom");
 				$("#citySelect").val("Custom");
 				$("#monthSelect").val(month);
@@ -106,9 +112,10 @@ define([
 				that.chart.costs.setCustomURL(costs);
 			});
 		},
-		customAll: function(costs, proposal, position) {
+		customAll: function(costs, proposal, position, spouse) {
 			var that = this;
 			this.chart.on("rendered", function() {
+				app.secondIncome = (spouse === "0" ? false : true);
 				$("#householdSelect").val("Custom");
 				$("#citySelect").val("Custom");
 				$("#monthSelect").val("Custom");

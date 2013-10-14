@@ -133,6 +133,7 @@ input.shareURL[type="text"] {
 /* costs */
 h4, h5 {
   font-family: Helvetica;
+  text-align: center;
 }
 
 #footer h4 {
@@ -196,7 +197,17 @@ input.costEdit[type="text"] {
     color: #2667B7;*/
 }
 
-
+.editButton {
+/*  width: 38px;
+  height: 38px;
+  border-radius: 19px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;*/
+  font-family: Helvetica;
+  font-size: 1em;
+  font-weight: 400;
+}
 
 /* chart */
 #chartContainer {
@@ -204,14 +215,14 @@ input.costEdit[type="text"] {
 }
 #chartContainer h2, #chartContainer p {
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   font-family: Helvetica;
 
 }
-
-#chartContainer p {
-  margin-bottom: 15px;
+input.secondIncomeToggle[type="checkbox"] {
+  margin: 5px;
 }
+
 .employeePosition {
 
     font-family: Helvetica;

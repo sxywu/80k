@@ -64,7 +64,8 @@ define([
         },
         secondIncomeToggle: function(e) {
             app.secondIncome = $(e.target).is(":checked");
-            this.chartView.update();
+            // this.chartView.update();
+            this.costsView.collection.trigger("change");
         }
     });
 });

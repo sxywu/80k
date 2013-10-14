@@ -16,7 +16,6 @@ define([
 
             this.collection.on("reset", _.bind(this.renderOne, this));
             this.collection.on("change", _.bind(this.renderOne, this));
-            // this.collection.on("manualCustom", _.bind(this.showEditable, this));
         },
         render: function() {
             this.collection.fetch();
@@ -32,6 +31,16 @@ define([
             }));
             if (model.get("TYPE") === "Custom") {
                 this.showEditable();
+            } else if (model.get("TYPE").split("P")[0] === "2") {
+                $(".secondIncome").show();
+            } else if (model.get("TYPE").split("P")[0] === "1") {
+                $(".secondIncome").hide();
+                $(".secondIncomeToggle").prop("checked", false);
+            }
+            if (app.secondIncome) {
+                $(".secondIncomeToggle").prop("checked", true);
+            } else {
+                $(".secondIncomeToggle").prop("checked", false);
             }
         },
         events: {
@@ -46,10 +55,15 @@ define([
                 this.$("#citySelect").val(this.collection.defaultCost.city);
             }
             this.collection.setShowingType(val);
-            // this.renderOne();
             if (val === "Custom") {
                 this.$("#citySelect").val("Custom");
                 this.showEditable();
+                $(".secondIncome").show();
+            } else if (val.split("P")[0] === "2") {
+                $(".secondIncome").show();
+            } else if (val.split("P")[0] === "1") {
+                $(".secondIncome").hide();
+                $(".secondIncomeToggle").prop("checked", false);
             }
         },
         setCity: function(e) {
