@@ -49,6 +49,4 @@ require([
     app.medianIncome = 36485.75; // median income for bay area
     var appView = new AppView();
     appView.render();
-
-    window.appView = appView;
 });

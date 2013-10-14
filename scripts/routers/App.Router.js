@@ -57,7 +57,6 @@ define([
 				i += 1;
 			});
 
-			console.log(str);
 			str += "/" + (app.secondIncome ? 1 : 0);
 
 			$(".URLtoShare").val("http://sxywu.github.io/80k/#" + kind + str);

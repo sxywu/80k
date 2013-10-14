@@ -52,7 +52,8 @@ define([
         events: {
             "click .shareURL": "shareURL",
             "blur .popover": "hidePopover",
-            "change .secondIncomeToggle": "secondIncomeToggle"
+            "change .secondIncomeToggle": "secondIncomeToggle",
+            "click .editButton": "customize"
         },
         shareURL: function(e) {
             $(".shareURL").popover("show");
@@ -64,8 +65,17 @@ define([
         },
         secondIncomeToggle: function(e) {
             app.secondIncome = $(e.target).is(":checked");
-            // this.chartView.update();
             this.costsView.collection.trigger("change");
+        },
+        customize: function(e) {
+            var val = $(e.target).attr("name");
+            if (val === "customizeCosts") {
+                $("#householdSelect").val("Custom");
+                $("#householdSelect").change();
+            } else if (val === "customizeProposals") {
+                $("#monthSelect").val("Custom");
+                $("#monthSelect").change();
+            }
         }
     });
 });

@@ -225,7 +225,7 @@ define([
                 .attr("width", barWidth)
                 .attr("height", function(d) {return y(d.height)})
                 .attr("opacity", function(d) {return d.opacity})
-                .attr("fill", function(d) {console.log(d.party); return app.colors[d.party]})
+                .attr("fill", function(d) {return app.colors[d.party]})
                 .attr("stroke", "none");
             bars.selectAll("rect").data(function(d) {return d;})
                 .exit().remove();
