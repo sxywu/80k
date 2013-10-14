@@ -21,7 +21,7 @@ define([
             barPadding = .5,
             hoverHeight = 7,
             padding = {top: 25, left: 75},
-            groups, bars, rects, dots, lines, hover, x, y, barLegend;
+            groups, bars, rects, dots, lines, hover, x, y, barLegend, rectTip, svg, legendSVG;
 
         
 
@@ -37,18 +37,18 @@ define([
                     .domain([max, 0])
                     .range([0, height - padding.top]);
 
-            var rectTip = d3.tip().attr('class', 'd3-tip')
+            rectTip = d3.tip().attr('class', 'd3-tip')
                 .direction("e").offset([0, barWidth / 2])
                 .html(function(d, i) {
                     return _.template(RectangleHoverTemplate, d); 
-                }),
-                hoverTip = d3.tip().attr('class', 'd3-tip')
+                });
+            var hoverTip = d3.tip().attr('class', 'd3-tip')
                 .direction("e").offset([0, barWidth / 2])
                 .html(function(d, i) {
                     return "cost of living<br> <div class='proposalAmount'>$" + d3.format(",f")(d.cost) + "</div>"; 
                 });
 
-            var svg = d3.select(selection);
+            svg = d3.select(selection);
 
             groups = svg.selectAll("g.bars")
                 .data(data).enter().append("g").classed("bars", true)
@@ -147,8 +147,8 @@ define([
         }
 
         stackedBar.legend = function(selection) {
-            var svg = d3.select(selection);
-            var costLegend = svg.append("g")
+            legendSVG = d3.select(selection);
+            var costLegend = legendSVG.append("g")
                 .attr("transform", "translate(0, " + padding.top + ")");
             costLegend.append("circle")
                 .attr("cx", barPadding + barWidth)
@@ -168,7 +168,7 @@ define([
                 .attr("dy", ".25em")
                 .text("Cost of living (Annual)");
 
-            barLegend = svg.selectAll("g.barLegend").data(data[0].bars)
+            barLegend = legendSVG.selectAll("g.barLegend").data(data[0].bars)
                 .enter().append("g").classed("barLegend", true)
                 .attr("transform", function(d, i) {
                     return "translate(0, " + (2 * padding.top + i * barWidth + i * barPadding) + ")";
@@ -182,7 +182,7 @@ define([
                 .attr("opacity", function(d) {return d.opacity})
                 .attr("fill", function(d) {return app.colors[d.party]});
 
-            var legendHover = svg.append("g").classed("legendHover", true)
+            var legendHover = legendSVG.append("g").classed("legendHover", true)
                 .attr("transform", "translate(0," + 2 * padding.top + ")")
                 .on("mouseleave", function() {
                     stackedBar.update(0);
@@ -198,7 +198,7 @@ define([
                 .style("cursor", "pointer")
                 .on("mouseover", legendMouseover);
 
-            svg.selectAll("text.barText").data(data[0].bars[0])
+            legendSVG.selectAll("text.barText").data(data[0].bars[0])
                 .enter().append("text").classed("barText", true)
                 .attr("x", function(d, i) {return i * (legendWidth / 4)})
                 .attr("y", 2 * padding.top + 3 * barWidth)
@@ -214,8 +214,52 @@ define([
             rects.data(function(d) {return d}).transition().duration(duration)
                 .attr("y", function(d) {return height - y(d.ending)})
                 .attr("height", function(d) {return y(d.height)})
+                .attr("opacity", function(d) {return d.opacity})
+                .attr("fill", function(d) {return app.colors[d.party]})
                 .attr("opacity", function(d) {return d.opacity});
-            barLegend.selectAll("rect").attr("opacity", function(d) {return d.opacity});
+            bars.selectAll("rect").data(function(d) {return d})
+                .enter().append("rect").transition().duration(duration)
+                .attr("class", function(d) {return d.title + "Bar"})
+                .attr("x", barPadding)
+                .attr("y", function(d) {return height - y(d.ending)})
+                .attr("width", barWidth)
+                .attr("height", function(d) {return y(d.height)})
+                .attr("opacity", function(d) {return d.opacity})
+                .attr("fill", function(d) {console.log(d.party); return app.colors[d.party]})
+                .attr("stroke", "none");
+            bars.selectAll("rect").data(function(d) {return d;})
+                .exit().remove();
+            rects = bars.selectAll("rect")
+                .call(rectTip)
+                .on("mouseover", rectTip.show)
+                .on("mouseleave", rectTip.hide);
+
+            barLegend.data(function(d) {return data[0].bars;});
+            barLegend.selectAll("rect").data(function(d) {return d;})
+                .transition().duration(duration)
+                .attr("fill", function(d) {return app.colors[d.party]})
+                .attr("opacity", function(d) {return d.opacity});
+            barLegend.selectAll("rect").data(function(d) {return d;})
+                .enter().append("rect").attr("class", function(d) {return d.title + "Bar"})
+                .attr("x", function(d, i) {return i * (legendWidth / 4)})
+                .attr("y", 0)
+                .attr("width", legendWidth / 4)
+                .attr("height", barWidth)
+                .attr("opacity", function(d) {return d.opacity})
+                .attr("fill", function(d) {return app.colors[d.party]});
+            barLegend.selectAll("rect").data(function(d) {return d;})
+                .exit().remove();
+
+            legendSVG.selectAll("text.barText").data(data[0].bars[0])
+                .text(function(d) {return d.title});
+            legendSVG.selectAll("text.barText").data(data[0].bars[0])
+                .enter().append("text").classed("barText", true)
+                .attr("x", function(d, i) {return i * (legendWidth / 4)})
+                .attr("y", 2 * padding.top + 3 * barWidth)
+                .attr("text-anchor", "start")
+                .text(function(d) {return d.title});
+            legendSVG.selectAll("text.barText").data(data[0].bars[0])
+                .exit().remove();
 
             dots.each(function(d, i) {
                 d = data[i];

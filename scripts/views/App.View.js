@@ -51,7 +51,8 @@ define([
         },
         events: {
             "click .shareURL": "shareURL",
-            "blur .popover": "hidePopover"
+            "blur .popover": "hidePopover",
+            "change .secondIncomeToggle": "secondIncomeToggle"
         },
         shareURL: function(e) {
             $(".shareURL").popover("show");
@@ -60,6 +61,10 @@ define([
         },
         hidePopover: function() {
             $(".shareURL").popover("hide");
+        },
+        secondIncomeToggle: function(e) {
+            app.secondIncome = $(e.target).is(":checked");
+            this.chartView.update();
         }
     });
 });
