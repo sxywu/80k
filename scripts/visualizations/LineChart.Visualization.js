@@ -195,6 +195,11 @@ define([
             hoverCircles.style("cursor", "default");
         }
 
+        // trigger a hover on a circle to prod a user to drag it in customize mode
+        lineChart.customizeProd = function() {
+            console.log(d3.event);
+        }
+
         /* getter/setters */
         lineChart.key = function(value) {
             if (!arguments.length) return key;

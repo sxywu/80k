@@ -75,6 +75,7 @@ define([
             } else if (val === "customizeProposals") {
                 $("#monthSelect").val("Custom");
                 $("#monthSelect").change();
+                $("#proposalContainer").tooltip("show");
             }
             $(e.target).addClass("disabled");
         }

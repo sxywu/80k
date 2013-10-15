@@ -31,6 +31,7 @@ define([
             }));
             if (model.get("TYPE") === "Custom") {
                 this.showEditable();
+                $(".editButton[name='customizeCosts']").addClass("disabled");
             } else if (model.get("TYPE").split("P")[0] === "2") {
                 $(".secondIncome").show();
             } else if (model.get("TYPE").split("P")[0] === "1") {

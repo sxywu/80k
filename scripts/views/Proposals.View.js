@@ -2,6 +2,7 @@ define([
     "jquery",
     "underscore",
     "backbone",
+    "bootstrap",
     "text!app/templates/Proposal.Template.html",
     "app/models/Proposal.Model",
     "app/visualizations/LineChart.Visualization"
@@ -9,6 +10,7 @@ define([
     $,
     _,
     Backbone,
+    bootstrap,
     ProposalTemplate,
     ProposalModel,
     LineChartVisualization
@@ -58,6 +60,8 @@ define([
 
             if (model.get("month") === "Custom") {
                 this.manualCustom();
+                $(".editButton[name='customizeProposals']").addClass("disabled");
+                $("#proposalContainer").tooltip("show");
             }
         },
         dragUpdate: function(e, key, array) {
@@ -76,9 +80,11 @@ define([
             if (val === "Custom") {
                 app.editable = true;
                 $(".editButton[name='customizeProposals']").addClass("disabled");
+                $("#proposalContainer").tooltip("show");
             } else {
                 app.editable = false;
                 $(".editButton[name='customizeProposals']").removeClass("disabled");
+                $("#proposalContainer").tooltip("destroy");
             }
             _.each(this.charts, function(val, key) {
                 if (app.editable) {
