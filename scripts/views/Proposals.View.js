@@ -73,6 +73,13 @@ define([
             var val = $(e.target).val();
 
             app.editable = (val === "Custom" ? true : false);
+            if (val === "Custom") {
+                app.editable = true;
+                $(".editButton[name='customizeProposals']").addClass("disabled");
+            } else {
+                app.editable = false;
+                $(".editButton[name='customizeProposals']").removeClass("disabled");
+            }
             _.each(this.charts, function(val, key) {
                 if (app.editable) {
                     val.editing();

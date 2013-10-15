@@ -76,6 +76,7 @@ define([
                 $("#monthSelect").val("Custom");
                 $("#monthSelect").change();
             }
+            $(e.target).addClass("disabled");
         }
     });
 });

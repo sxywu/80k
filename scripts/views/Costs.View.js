@@ -59,11 +59,14 @@ define([
                 this.$("#citySelect").val("Custom");
                 this.showEditable();
                 $(".secondIncome").show();
+                $(".editButton[name='customizeCosts']").addClass("disabled");
             } else if (val.split("P")[0] === "2") {
                 $(".secondIncome").show();
+                $(".editButton[name='customizeCosts']").removeClass("disabled");
             } else if (val.split("P")[0] === "1") {
                 $(".secondIncome").hide();
                 $(".secondIncomeToggle").prop("checked", false);
+                $(".editButton[name='customizeCosts']").removeClass("disabled");
             }
         },
         setCity: function(e) {
@@ -75,6 +78,9 @@ define([
             if (val === "Custom") {
                 this.$("#householdSelect").val("Custom");
                 this.showEditable();
+                $(".editButton[name='customizeCosts']").addClass("disabled");
+            } else {
+                $(".editButton[name='customizeCosts']").removeClass("disabled");
             }
         },
         showEditable: function() {
