@@ -23,7 +23,8 @@ define([
                     .filter(function(position) {
                         return (position.Source === "MNP") &&
                             (position.Union !== "SEIU") &&
-                            (position.Union !== "ATU");
+                            (position.Union !== "ATU") &&
+                            (position.Union !== "AFSCME");
                     }).groupBy(function(position) {
                         return position.Source;
                     }).each(function(val, key) {
@@ -43,7 +44,9 @@ define([
                 // get union workers
                 _.chain(response)
                     .filter(function(position) {
-                        return (position.Union === "SEIU") || (position.Union === "ATU");
+                        return (position.Union === "SEIU") 
+                        || (position.Union === "ATU")
+                        || (position.Union === "AFSCME");
                     }).groupBy(function(position) {
                         return position.Title;
                     }).each(function(val, key) {

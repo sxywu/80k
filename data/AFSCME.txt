@@ -1,0 +1,70 @@
+Manager of Access/Accessibility - AFSCME -  1
+Section Manager Elev/Escalator Maintenance - AFSCME -  3
+Manager of Drafting & Configuratio - AFSCME -  1
+Manager of Operations Safety - AFSCME -  1
+Section Manager Power & Mechanical Maintenance - AFSCME -  6
+Manager of Customer Services - AFSCME -  1
+Manager of Employee/Patron Safety - AFSCME -  1
+Spec Proj Manager Tracks & Struct - AFSCME -  1
+Manager of Access Programs - AFSCME -  1
+Section Manager Structures Maintenance - AFSCME -  1
+Scheduling Supervisor - AFSCME -  1
+Section Manager Struct Insp & Maintenance - AFSCME -  1
+Section Manager Systems Maintenance - AFSCME -  11
+Section Manager Track Maintenance - AFSCME -  5
+Assistant Manager of Revenue Control - AFSCME -  1
+Manager of Accounting - AFSCME -  3
+Manager of Time and Labor Adm - AFSCME -  1
+Manager of Transit Vehicle Cleanin - AFSCME -  1
+Assistant Logistics Program Manager - AFSCME -  1
+Manager of Inventory Management - AFSCME -  1
+Manager of Automotive & Equipment Maintenance - AFSCME -  1
+Supervisor Business Systems Oper - AFSCME -  2
+Enterprise Info Project Spec - AFSCME -  5
+Environmental Administrator - AFSCME -  1
+Query & Reports Spec - AFSCME -  1
+Senior Applications Analyst - AFSCME -  2
+Train Controller - AFSCME -  23
+Principal Prop Developmentlop Officer - AFSCME -  4
+Senior Systems Programmer - AFSCME -  2
+District Right of Way Surveyor - AFSCME -  2
+Senior Admin Analyst - - AFSCME -  - AFSCME -  7
+Principal Planner - AFSCME -  6
+Senior Energy Analyst - AFSCME -  1
+Principal Admin Analyst - AFSC - AFSCME -  1
+Principal Right of Way Officer - AFSCME -  1
+Fac/Uti Location Coordinator - AFSCME -  1
+Principal Financial Analyst - AFSCME -  12
+Principal Marketing Representative - AFSCME -  6
+Systems Programmer - AFSCME -  1
+Senior Central Maintenance Supervisor - AFSCME -  1
+Senior Operations Supervisor-Ops Liaison - AFSCME -  2
+Senior Operations Supervisor - AFSCME -  10
+Senior Financial Analyst - - AFSCME -  - AFSCME -  12
+Facilities Maintenance Supervisor - AFSCME -  4
+Senior Operations Safety Spec - AFSCME -  1
+Principal Gov & Comm Rel Representative - AFSCME -  3
+Public Information Officer - AFSCME -  1
+Senior Safety Specialist - AFSCME -  2
+Liability Risk Analyst - AFSCME -  1
+Asset Coordinator - AFSCME -  1
+Senior Marketing Representative - AFSCME -  1
+Access Coordinator - AFSCME -  2
+Central Maintenance Supervisor - AFSCME -  5
+Senior Right of Way Officer - AFSCME -  1
+Operations Supervisor - AFSCME -  15
+Automotive & Equipment Maintenance Supervisor - AFSCME -  1
+Operations Supervisor-Ops Liaison - AFSCME -  5
+Senior Real Estate Officer - AFSCME -  1
+Technician Maintenance Support Coord - AFSCME -  1
+Senior Planner - AFSCME -  1
+Senior Logistics Supervisor - AFSCME -  2
+Maintenance Support Administrator - AFSCME -  1
+Senior Time & Labor Admin Analyst - AFSCME -  2
+Legal Office Supervisor - AFSCME -  1
+Senior Inventory Control Analyst - AFSCME -  1
+System Service Supervisor - AFSCME -  4
+Insurance Analyst - AFSCME -  1
+Marketing Representative II - AFSCME -  3
+Treasury Analyst - AFSCME -  3
+Material Control Systems Analyst - AFSCME -  3 
